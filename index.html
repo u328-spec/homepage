@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>TRIPLE COMMA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <!-- Pretendard Font -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <!-- Hi Melody Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
+    /* 로고: 처음엔 흰색(invert), 스크롤 시 검정색(원본) */
+    .logo-invert {
+      filter: invert(1);
+      transition: filter 0.3s ease;
+    }
+    header.scrolled .logo-invert {
+      filter: none;
+    }
+    /* 스크롤 시 헤더 스타일 */
+    header.scrolled {
+      background-color: white;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    }
+    header.scrolled nav,
+    header.scrolled nav a {
+      color: black;
+    }
+    .mobile-menu-btn span {
+      background-color: white;
+      transition: background-color 0.3s ease;
+    }
+    header.scrolled .mobile-menu-btn span {
+      background-color: black;
+    }
+    /* box 로고 가로 흐름 애니메이션 */
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-scroll {
+      animation: scroll-left 30s linear infinite;
+    }
+    .scroll-mask {
+      mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    }
+    /* 서비스 메가메뉴 - 서비스 텍스트 기준 중앙 정렬 */
+    .mega-menu {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, -8px);
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+    }
+    .service-trigger:hover .mega-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+    /* 모바일 메뉴 오버레이 - 서비스 펼침 시 배경 강조 */
+    #mobile-menu .mobile-service-trigger[aria-expanded="true"] {
+      background-color: #ffffff;
+    }
+    #mobile-menu .mobile-service-sub {
+      transition: opacity 0.2s, max-height 0.25s ease;
+    }
+    /* 히어로 배경 슬라이드쇼 (4장 순차 전환, 2초 간격, 줌인 이펙트) */
+    .hero-bg-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transform-origin: center center;
+      opacity: 0;
+    }
+    .hero-bg-slide:nth-child(1) {
+      background-image: url('bg_main1.png');
+      animation: hero-show 8s steps(1, end) infinite, hero-zoom 8s linear infinite;
+    }
+    .hero-bg-slide:nth-child(2) {
+      background-image: url('bg_main2.png');
+      animation: hero-show 8s steps(1, end) infinite 2s, hero-zoom 8s linear infinite 2s;
+    }
+    .hero-bg-slide:nth-child(3) {
+      background-image: url('bg_main3.png');
+      animation: hero-show 8s steps(1, end) infinite 4s, hero-zoom 8s linear infinite 4s;
+    }
+    .hero-bg-slide:nth-child(4) {
+      background-image: url('bg_main4.png');
+      animation: hero-show 8s steps(1, end) infinite 6s, hero-zoom 8s linear infinite 6s;
+    }
+    /* 0%에 보임 → 25%에서 숨김. 4장 × 2초 = 8초 주기 */
+    @keyframes hero-show {
+      0% { opacity: 1; }
+      25% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    /* 2초 동안 1 → 1.08 줌인 */
+    @keyframes hero-zoom {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.08); }
+      100% { transform: scale(1.08); }
+    }
+    /* 연혁 타임라인: GSAP 등장 전 초기 상태 및 성능 최적화 */
+    .history-section .history-item {
+      opacity: 0;
+      transform: translateY(60px);
+      will-change: transform, opacity;
+    }
+    .history-section .history-item.is-visible {
+      will-change: auto;
+    }
+    /* 유저 스토리 스크롤 핀 섹션 (당근 about 스타일) */
+    .story-section {
+      background-color: #fff;
+    }
+    .story-section .story-track {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 1.25rem 4rem;
+    }
+    .story-section .story-title {
+      flex-shrink: 0;
+    }
+    .story-section .story-content-area {
+      position: relative;
+      flex: 1;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+    }
+    .story-section .story-text-column {
+      position: relative;
+      min-height: 200px;
+    }
+    .story-section .story-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+    .story-section .story-item.is-active {
+      pointer-events: auto;
+    }
+    .story-section .story-images {
+      position: relative;
+      align-self: flex-start;
+      margin-top: -14rem;
+    }
+    @media (min-width: 768px) {
+      .story-section .story-images { margin-top: -15rem; }
+    }
+    @media (min-width: 1024px) {
+      .story-section .story-images { margin-top: -16rem; }
+    }
+    .story-section .story-images .story-img {
+      transition: none;
+    }
+    .story-section .story-subtitle-line {
+      font-weight: 700;
+      color: #000;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .story-section .story-subtitle-line .story-subtitle-sep {
+      color: #d8d8d8;
+      font-weight: 700;
+      margin: 0 0.5em;
+    }
+    @media (min-width: 768px) {
+      .story-section .story-subtitle-line { font-size: 1.125rem; }
+    }
+    @media (min-width: 768px) {
+      .story-section .story-track {
+        padding: 6rem 3rem 5rem;
+      }
+      .story-section .story-content-area {
+        min-height: 320px;
+      }
+    }
+    @media (min-width: 1024px) {
+      .story-section .story-track {
+        padding: 7rem 4rem 6rem;
+      }
+      .story-section .story-content-area {
+        min-height: 360px;
+      }
+    }
+    /* 스크롤 유도 화살표 (토스 스타일) */
+    @keyframes scroll-hint-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      transition: color 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+      opacity: 0.85;
+      z-index: 10;
+    }
+    .scroll-hint:hover {
+      color: #fff;
+      opacity: 1;
+      transform: translateX(-50%) scale(1.08);
+    }
+    .scroll-hint:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.8);
+      outline-offset: 4px;
+    }
+    .scroll-hint-icon {
+      width: 48px;
+      height: 48px;
+      animation: scroll-hint-bounce 2s ease-in-out infinite;
+    }
+    @media (min-width: 768px) {
+      .scroll-hint { bottom: 2rem; }
+      .scroll-hint-icon { width: 56px; height: 56px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-hint-icon { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section - 전체 화면, 배경 4장 순차 전환 -->
+  <section class="relative min-h-screen overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="hero-bg-slide"></div>
+      <div class="hero-bg-slide"></div>
+      <div class="hero-bg-slide"></div>
+      <div class="hero-bg-slide"></div>
+    </div>
+
+    <!-- 고정 헤더 - 푸터와 왼쪽 정렬 -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-300 md:py-4">
+      <div class="mx-auto flex max-w-5xl items-center justify-between px-5 md:px-12 lg:px-16">
+      <!-- 로고 -->
+      <a href="index.html" class="flex items-center md:-ml-12 lg:-ml-16">
+        <img src="logo_triplecomma.svg" alt="TRIPLE COMMA" class="h-3.5 logo-invert md:h-4" />
+      </a>
+      
+      <!-- 데스크톱 내비게이션 (모바일에서 숨김) -->
+      <nav class="-mr-6 hidden items-center gap-[7.5rem] text-white transition-colors duration-300 md:-mr-12 md:flex lg:-mr-16">
+        <a href="index.html" class="text-sm font-medium transition-colors duration-300 hover:opacity-80 hover:underline md:text-base">회사 소개</a>
+        <div class="service-trigger relative inline-block">
+          <a href="service.html" class="text-sm font-medium transition-colors duration-300 hover:opacity-80 hover:underline md:text-base">서비스</a>
+          <div class="mega-menu absolute left-1/2 top-full pt-2">
+            <div class="w-72 rounded-2xl bg-white p-4 shadow-lg">
+            <a href="service.html" class="mb-2 flex items-center gap-4 rounded-xl px-3 py-3 transition hover:bg-neutral-200 last:mb-0">
+              <img src="logo_goldspoon.png" alt="골드스푼" class="h-12 w-12 shrink-0 rounded-lg object-contain" />
+              <div>
+                <p class="font-bold text-neutral-800">골드스푼</p>
+                <p class="text-sm text-neutral-500">검증기반 2030 데이팅앱</p>
+              </div>
+            </a>
+            <a href="#" class="mb-2 flex items-center gap-4 rounded-xl px-3 py-3 transition hover:bg-neutral-200 last:mb-0">
+              <img src="logo_themembers.png" alt="더멤버스" class="h-12 w-12 shrink-0 rounded-lg object-contain" />
+              <div>
+                <p class="font-bold text-neutral-800">더멤버스</p>
+                <p class="text-sm text-neutral-500">검증기반 3040 데이팅앱</p>
+              </div>
+            </a>
+            <a href="#" class="flex items-center gap-4 rounded-xl px-3 py-3 transition hover:bg-neutral-200">
+              <img src="logo_hillshigh.png" alt="힐즈하이" class="h-12 w-12 shrink-0 rounded-lg object-contain" />
+              <div>
+                <p class="font-bold text-neutral-800">힐즈하이</p>
+                <p class="text-sm text-neutral-500">검증기반 일본 데이팅앱</p>
+              </div>
+            </a>
+            </div>
+          </div>
+        </div>
+        <a href="career.html" class="text-sm font-medium transition-colors duration-300 hover:opacity-80 hover:underline md:text-base">채용</a>
+      </nav>
+
+      <!-- 모바일 햄버거 메뉴 (md 이상에서 숨김) -->
+      <div class="relative flex md:hidden">
+        <button type="button" class="mobile-menu-btn flex h-9 w-9 flex-col items-center justify-center gap-1 rounded-lg border-0 bg-transparent p-0" aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기" id="mobile-menu-btn">
+          <span class="block h-0.5 w-4 rounded-full"></span>
+          <span class="block h-0.5 w-4 rounded-full"></span>
+          <span class="block h-0.5 w-4 rounded-full"></span>
+        </button>
+      </div>
+      </div>
+
+      <!-- 모바일 메뉴 오버레이 (전체 화면, 참고 레이아웃) -->
+      <div id="mobile-menu" class="fixed inset-0 z-[60] hidden bg-white md:hidden" aria-hidden="true">
+        <div class="flex h-full flex-col">
+          <div class="flex flex-shrink-0 items-center justify-between border-b border-neutral-200 px-5 py-4 md:px-6">
+            <a href="index.html" class="flex items-center" onclick="document.getElementById('mobile-menu').classList.add('hidden');">
+              <img src="logo_triplecomma.svg" alt="TRIPLE COMMA" class="h-4" />
+            </a>
+            <button type="button" class="flex h-10 w-10 items-center justify-center rounded-lg border-0 bg-transparent text-2xl text-neutral-600 hover:bg-neutral-100 hover:text-neutral-800" aria-label="메뉴 닫기" id="mobile-menu-close">×</button>
+          </div>
+          <nav class="flex-1 overflow-auto px-5 py-2 md:px-6">
+            <a href="index.html" class="block py-4 text-base font-medium text-neutral-800">회사소개</a>
+            <div class="py-1">
+              <button type="button" class="mobile-service-trigger flex w-full items-center justify-between rounded-lg px-0 py-4 text-left text-base font-bold text-neutral-800 -mx-5 px-5 md:-mx-6 md:px-6" aria-expanded="false" aria-controls="mobile-service-sub" id="mobile-service-toggle">
+                <span>서비스</span>
+                <span class="mobile-service-caret text-neutral-500" aria-hidden="true">▼</span>
+              </button>
+              <div id="mobile-service-sub" class="mobile-service-sub hidden overflow-hidden pl-4" style="border-left: 2px solid #e5e7eb;">
+                <a href="service.html" class="block py-2.5 text-sm text-neutral-700">골드스푼</a>
+                <a href="#" class="block py-2.5 text-sm text-neutral-700">더멤버스</a>
+                <a href="#" class="block py-2.5 text-sm text-neutral-700">힐즈하이</a>
+              </div>
+            </div>
+            <a href="career.html" class="block py-4 text-base font-medium text-neutral-800">채용</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- 중앙 텍스트 영역 -->
+    <div class="flex min-h-screen flex-col items-center justify-center px-5 text-center md:px-6">
+      <h1 class="mb-4 text-3xl font-bold text-white md:text-5xl lg:text-6xl" style="line-height: 140%;">
+        자격을 갖춘 사람들을 위해<br />가치 있는 매칭 서비스를 제공합니다
+      </h1>
+      <p class="text-3xl font-light tracking-wide text-white/90">
+        For Those Who Qualify
+      </p>
+    </div>
+    <!-- 스크롤 유도 화살표 -->
+    <a href="#about" class="scroll-hint" aria-label="아래로 스크롤하여 더 보기">
+      <svg class="scroll-hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 10 L12 17 L20 10" />
+      </svg>
+    </a>
+  </section>
+
+  <!-- 회사 소개 페이지 -->
+  <div id="about">
+    <!-- 인증형 데이팅앱 패러다임 / 2x2 카드 섹션 -->
+    <section id="info-cards" class="bg-white px-5 py-24 md:px-12 md:py-32 lg:px-16" aria-label="서비스 현황">
+      <div class="mx-auto max-w-5xl">
+        <h2 class="mb-10 text-left text-2xl font-bold leading-tight text-neutral-900 md:mb-12 md:text-3xl lg:text-4xl" style="line-height: 1.4;">
+          우리는 인증형 데이팅앱의<br />새로운 패러다임을 만들어 왔습니다
+        </h2>
+        <!-- 첫 줄 3개, 둘째 줄 2개 -->
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
+          <!-- 1행: 이미지 -->
+          <div class="overflow-hidden rounded-lg bg-neutral-100 shadow-sm">
+            <img src="img_info01.png" alt="" class="h-full w-full object-cover" />
+          </div>
+          <!-- 1행: MAU -->
+          <div class="rounded-lg bg-[#f8f8f8] p-6 shadow-sm md:p-8">
+            <p class="text-sm text-neutral-500 md:text-base">월간 활성 사용자 (MAU)</p>
+            <p class="mt-2 text-xl font-bold text-neutral-900 md:text-2xl">45,000+</p>
+          </div>
+          <!-- 1행: WAU -->
+          <div class="rounded-lg bg-[#f8f8f8] p-6 shadow-sm md:p-8">
+            <p class="text-sm text-neutral-500 md:text-base">주간 활성 사용자 (WAU)</p>
+            <p class="mt-2 text-xl font-bold text-neutral-900 md:text-2xl">33,000+</p>
+          </div>
+          <!-- 2행: 일 평균 사용 시간 -->
+          <div class="rounded-lg bg-[#f8f8f8] p-6 shadow-sm md:p-8">
+            <p class="text-sm text-neutral-500 md:text-base">일 평균 사용 시간</p>
+            <p class="mt-2 text-xl font-bold text-neutral-900 md:text-2xl">매일 25분+</p>
+          </div>
+          <!-- 2행: 주 평균 방문 횟수 + 이미지(오른쪽) -->
+          <div class="flex overflow-hidden rounded-lg bg-[#f8f8f8] shadow-sm md:col-span-2">
+            <div class="flex flex-1 flex-col justify-center p-6 md:p-8">
+              <p class="text-sm text-neutral-500 md:text-base">주 평균 방문 횟수</p>
+              <p class="mt-2 text-xl font-bold text-neutral-900 md:text-2xl">5일 이상 60%+</p>
+            </div>
+            <div class="relative h-48 w-full shrink-0 md:h-56 md:max-w-[45%]">
+              <img src="img_info02.png" alt="" class="h-full w-full object-cover object-right" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vision 섹션 -->
+    <section id="vision" class="bg-[#f8f8f8] px-5 py-24 md:px-12 md:py-32" aria-label="비전">
+      <div class="mx-auto flex max-w-2xl flex-col items-center justify-center text-center">
+        <p class="mb-6 text-sm font-normal uppercase tracking-widest text-neutral-400 md:text-base">Vision</p>
+        <h2 class="mb-5 text-2xl font-bold leading-tight text-neutral-900 md:text-3xl lg:text-4xl" style="line-height: 1.4;">
+          신뢰 기반 소셜 데이팅의<br />새로운 기준을 만들어 갑니다
+        </h2>
+        <p class="text-sm font-normal text-neutral-400 md:text-base">
+          We're setting a new standard for trust-based dating.
+        </p>
+      </div>
+    </section>
+
+    <!-- 단체 섹션 -->
+    <section id="group" class="bg-white" aria-label="단체">
+      <div class="px-5 pt-32 pb-8 md:px-50 md:pt-40 md:pb-10 lg:px-58 lg:pb-12">
+        <div class="mx-auto max-w-5xl">
+          <!-- 텍스트 -->
+          <div class="mb-6 flex flex-col gap-20 md:flex-row md:items-start md:gap-28">
+            <h2 class="shrink-0 text-2xl font-bold leading-tight text-black md:text-3xl lg:text-4xl" style="line-height: 1.4;">
+              전문성과 공신력을 갖춘<br />기관과 함께합니다
+            </h2>
+            <p class="mt-0.5 text-neutral-600 md:max-w-xl md:text-base">
+              공중보건한의사협회, 의료·전문직 단체 등 신뢰 기반의 네트워크와 협력하고,<br />NICE평가정보, 하이픈 등 공신력 있는 정보 검증 기관을 통해<br />더 안심할 수 있는 만남을 만듭니다.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- box01~09 가로 흐름 애니메이션 - 전체 폭, 여백 없음 -->
+      <div class="w-full overflow-hidden pb-32 md:pb-40">
+        <div class="flex w-max animate-scroll gap-6 py-2">
+          <div class="flex shrink-0 gap-6">
+            <img src="box01.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box02.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box03.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box04.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box05.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box06.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box07.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box08.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box09.png" alt="ISMS-P 인증" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+          </div>
+          <div class="flex shrink-0 gap-6">
+            <img src="box01.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box02.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box03.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box04.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box05.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box06.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box07.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box08.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+            <img src="box09.png" alt="ISMS-P 인증" class="h-20 w-auto rounded-xl object-contain md:h-28" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="user-story" class="story-section" aria-label="유저 이야기">
+    <div class="story-track">
+      <div class="mx-auto w-full max-w-5xl">
+        <h3 class="story-title mb-16 text-2xl font-bold leading-tight text-black md:text-3xl lg:text-4xl md:mb-20 lg:mb-24" style="line-height: 1.4;">
+          우리는 누군가의 인생을<br />바꾸는 일을 하고 있습니다
+        </h3>
+        <div class="story-content-area">
+          <div class="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-16">
+            <div class="story-text-column relative flex-1">
+              <div class="story-item" data-story="0">
+                <h4 class="story-subtitle-line mt-6 mb-4 md:mt-8" aria-label="유저 스토리 서브 타이틀"><span>Lee님</span><span class="story-subtitle-sep">|</span><span>20대, 대학병원 레지던트</span></h4>
+                <div class="text-sm text-neutral-600 md:text-base" aria-label="유저 스토리 상세 후기" style="line-height: 1.4;">
+                  <p>헤어지고 몇년간 소개팅만 삼만팔천번은 한것 같은데,,</p>
+                  <p>무려 만5년만에 이상형 만나서 모든 소개팅앱 탈퇴합니다아</p>
+                  <p>그동안 혹시나, 설마, 내가사람보는눈이없나?, 그럼그렇지, 약속직전 당파당하거나 남자가 급 잠수타서 🤬</p>
+                  <p>혼자 콩나물국밥이나 뼈해장국에 소주 한병 비우고 집에 오기도하고</p>
+                  <p>별 짓을 다했는데 몇년을 늘 그랬는데.</p>
+                  <p>포기안하니까 되긴 되네용</p>
+                  <p>다들 좋은 만남 꼭 되세요 히히</p>
+                </div>
+              </div>
+              <div class="story-item" data-story="1">
+                <h4 class="story-subtitle-line mt-6 mb-4 md:mt-8" aria-label="유저 스토리 서브 타이틀"><span>Kim님</span><span class="story-subtitle-sep">|</span><span>20대, 예비부부</span></h4>
+                <div class="text-sm text-neutral-600 md:text-base" aria-label="유저 스토리 상세 후기" style="line-height: 1.4;">
+                  <p>처음엔 경제력 인증까지 해야 하나 싶었는데</p>
+                  <p>막상 해보니까 오히려 마음이 편해요.</p>
+                  <p>서로 기본적인 검증이 되어 있다는 느낌이라</p>
+                  <p>괜한 눈치싸움이나 떠보는 대화가 줄어든 듯해요.</p>
+                  <p>여기서 만난 분이랑은</p>
+                  <p>벌써 네 번째 데이트 했네요 ✨</p>
+                  <p>분위기 좋은 앱 찾는 분들 괜찮을 것 같아요.</p>
+                </div>
+              </div>
+              <div class="story-item" data-story="2">
+                <h4 class="story-subtitle-line mt-6 mb-4 md:mt-8" aria-label="유저 스토리 서브 타이틀"><span>Park님</span><span class="story-subtitle-sep">|</span><span>30대, 세무사</span></h4>
+                <div class="text-sm text-neutral-600 md:text-base" aria-label="유저 스토리 상세 후기" style="line-height: 1.4;">
+                  <p>골프 좋아하는데 주변에 같이 칠 사람이 없어서 시작해 봤어요.</p>
+                  <p>골프가 취미인 분이랑 매칭됐는데</p>
+                  <p>템포도 잘 맞고 대화도 편해서 자주 만나다가 결국 곧 결혼 앞두고 있어요 😊</p>
+                  <p>취미가 비슷한게 참 좋은 것 같아요</p>
+                </div>
+              </div>
+            </div>
+            <div class="story-images relative flex flex-1 shrink-0 justify-end">
+              <div class="story-img-wrap relative w-full max-w-lg lg:max-w-xl xl:max-w-2xl">
+                <img id="story-img-1" src="img_user01.png" alt="유저 스토리 1" class="story-img w-full rounded-2xl object-cover" />
+                <img id="story-img-2" src="img_user02.png" alt="유저 스토리 2" class="story-img absolute inset-0 w-full rounded-2xl object-cover opacity-0" />
+                <img id="story-img-3" src="img_user03.png" alt="유저 스토리 3" class="story-img absolute inset-0 w-full rounded-2xl object-cover opacity-0" />
+                <span id="story-pagination" class="absolute bottom-3 right-3 rounded-full bg-black/60 px-3 py-1.5 text-sm font-medium text-white" aria-label="이미지 1 of 3">1/3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <!-- 우리의 이야기 / 연혁 섹션 -->
+    <section id="history" class="history-section bg-white px-5 py-24 md:px-50 md:py-32 lg:px-58" aria-label="우리의 이야기">
+      <div class="mx-auto w-full max-w-5xl">
+        <div class="flex flex-col gap-16 lg:flex-row lg:gap-20">
+          <!-- 왼쪽: 타이틀 + 주요 지표 -->
+          <div class="flex-1 shrink-0">
+            <h2 class="mb-12 text-2xl font-bold leading-tight text-black md:text-3xl lg:text-4xl" style="line-height: 1.4;">
+              우리의 이야기는<br />지금부터 시작입니다
+            </h2>
+            <div class="space-y-10">
+              <div>
+                <p class="mb-2 text-lg text-neutral-500 md:text-xl">연간 매출액</p>
+                <p class="text-4xl font-bold text-neutral-800 md:text-5xl lg:text-6xl">142억 원</p>
+              </div>
+              <div>
+                <p class="mb-2 text-lg text-neutral-500 md:text-xl">서비스 가입자 수</p>
+                <p class="text-4xl font-bold text-neutral-800 md:text-5xl lg:text-6xl">50만</p>
+              </div>
+              <div>
+                <p class="mb-2 text-lg text-neutral-500 md:text-xl">연간 매칭 수</p>
+                <p class="text-4xl font-bold text-neutral-800 md:text-5xl lg:text-6xl">6,500만 건</p>
+              </div>
+            </div>
+          </div>
+          <!-- 오른쪽: 연혁 타임라인 -->
+          <div class="flex flex-1 flex-col pl-8 pt-8 lg:pl-12 lg:pt-10">
+            <div class="relative">
+              <div class="absolute left-0 top-2 bottom-12 w-0.5 -translate-x-1/2 bg-neutral-300" aria-hidden="true"></div>
+              <!-- 2026 -->
+              <div class="history-item relative -left-8 mb-10 pl-[52px]">
+                <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
+                <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2026</h3>
+                <ul class="space-y-1.5 text-sm text-neutral-600">
+                  <li class="flex gap-2"><span class="w-6 shrink-0">02</span><span>일본 데이팅 시장 진출 '힐즈하이' 론칭</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">03</span><span>ISMS-P 인증 획득</span></li>
+                </ul>
+              </div>
+              <!-- 2025 -->
+              <div class="history-item relative -left-8 mb-10 pl-[52px]">
+                <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
+                <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2025</h3>
+                <ul class="space-y-1.5 text-sm text-neutral-600">
+                  <li class="flex gap-2"><span class="w-6 shrink-0">01</span><span>노블레스디지털솔루션 업무 협약(MOU)</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>중소벤처기업진흥공단 글로벌비즈니스센터 입주</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">05</span><span>한화생명 골드스푼 나잇(GOLDSPOON NIGHT) 개최</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">05</span><span>일본 법인 설립</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">10</span><span>대한적십자사 '포장증' 명예장 수상</span></li>
+                </ul>
+              </div>
+              <!-- 2024 -->
+              <div class="history-item relative -left-8 mb-10 pl-[52px]">
+                <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
+                <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2024</h3>
+                <ul class="space-y-1.5 text-sm text-neutral-600">
+                  <li class="flex gap-2"><span class="w-6 shrink-0">03</span><span>'2024 대한민국 우수 브랜드 대상' 수상</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>벤처기업확인기관 '혁신성장유형' 벤처기업 인증</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">06</span><span>홈텍스 연계 간편인증 서비스 '블루라벨' 도입</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">07</span><span>국내 결혼중개업 등록</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">11</span><span>소벤처기업진흥공단 글로벌비즈니스센터 입주기업 선정</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">12</span><span>매출 100억 돌파</span></li>
+                </ul>
+              </div>
+              <!-- 2023 -->
+              <div class="history-item relative -left-8 mb-10 pl-[52px]">
+                <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
+                <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2023</h3>
+                <ul class="space-y-1.5 text-sm text-neutral-600">
+                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>대한적십자사 바른기업 참여</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">10</span><span>데이팅 서비스 업계 최초 ISMS 인증 획득</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">10</span><span>신규 3545 프리미엄 데이팅앱 '더멤버스' 론칭</span></li>
+                </ul>
+              </div>
+              <!-- 2022 -->
+              <div class="history-item relative -left-8 mb-10 pl-[52px]">
+                <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
+                <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2022</h3>
+                <ul class="space-y-1.5 text-sm text-neutral-600">
+                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>산업통상자원부/한국일보 주관 2021 대한민국 서비스 만족 대상 수상</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">06</span><span>대한공중보건 한의사협회 업무제휴 체결</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">12</span><span>중앙일보 주관 2022 올해의 우수 브랜드상 1위 수상</span></li>
+                </ul>
+              </div>
+              <!-- 2021 -->
+              <div class="history-item relative -left-8 mb-10 pl-[52px]">
+                <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
+                <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2021</h3>
+                <ul class="space-y-1.5 text-sm text-neutral-600">
+                  <li class="flex gap-2"><span class="w-6 shrink-0">02</span><span>구글스토어 라이프스타일 분야 최고매출 1위 달성</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">03</span><span>트리플콤마 기업부설연구소 설립</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>대한공중보건 한의사협회 최초 업무제휴 체결</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>산업통상자원부/한국일보 주관 2020 대한민국 서비스 만족 대상 수상</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>벤처기업협회 신성장분야 벤처기업 재인증</span></li>
+                </ul>
+              </div>
+              <!-- 2020 -->
+              <div class="history-item relative -left-8 mb-10 pl-[52px]">
+                <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
+                <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2020</h3>
+                <ul class="space-y-1.5 text-sm text-neutral-600">
+                  <li class="flex gap-2"><span class="w-6 shrink-0">03</span><span>대한공중보건 치과의사협회 업무제휴 체결</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">06</span><span>의사 전용 메신저 메디스태프 업무제휴 체결</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">12</span><span>연매출액 전년 대비 260% 성장</span></li>
+                </ul>
+              </div>
+              <!-- 2019 -->
+              <div class="history-item relative -left-8 mb-10 pl-[52px]">
+                <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
+                <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2019</h3>
+                <ul class="space-y-1.5 text-sm text-neutral-600">
+                  <li class="flex gap-2"><span class="w-6 shrink-0">02</span><span>의사 전용 메신저 메디스태프 최초 업무제휴 체결</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">03</span><span>대한공중보건 의사협회 업무제휴 체결</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>기술보증기금 선정 벤처기업 최초 인증</span></li>
+                </ul>
+              </div>
+              <!-- 2018 -->
+              <div class="history-item relative -left-8 pl-[52px]">
+                <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
+                <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2018</h3>
+                <ul class="space-y-1.5 text-sm text-neutral-600">
+                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>골드스푼 서비스 최초 론칭</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 합류 CTA 섹션 -->
+    <section class="relative flex min-h-[60vh] items-center justify-center bg-cover bg-center px-5 py-20 md:px-12 md:py-24" style="background-image: url('bg_last.png');">
+      <div class="relative z-10 mx-auto max-w-2xl px-8 py-14 text-center md:px-14 md:py-20">
+        <h2 class="mb-6 text-2xl font-bold leading-tight md:text-3xl lg:text-4xl" style="line-height: 1.4; color: #ffffff;">
+          트리플콤마는 소셜 데이팅의<br />혁신을 만들고 있습니다
+        </h2>
+        <p class="mb-10 text-base leading-relaxed md:text-lg" style="color: #ffffff;">
+          우리는 만남이 인생의 방향을 바꿀 수 있다고 믿습니다.<br class="hidden sm:inline" /> 더 나은 사람을 만나 더 나은 내가 될 수 있도록,<br class="hidden sm:inline" /> 우리는 오늘도 더 안전하고 더 진정성 있는 연결을 만들어갑니다.
+        </p>
+        <a href="https://www.wanted.co.kr/company/8040" target="_blank" rel="noopener noreferrer" class="inline-flex rounded-full bg-white px-8 py-3.5 text-base font-medium text-neutral-900 transition hover:bg-neutral-100 md:px-10 md:py-4 md:text-lg">
+          합류하러 가기
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- 푸터 -->
+  <footer class="px-5 py-14 md:px-50 md:py-16 lg:px-58" style="--footer-dark: #4B4B4B; --footer-light: #9A9A9A; background-color: #fafafa;">
+    <div class="mx-auto max-w-5xl">
+      <!-- 상단 섹션: 로고 + 기업 정보 -->
+      <div class="mb-5">
+        <a href="#" class="mb-[18px] block w-fit">
+          <img src="logo_triplecomma.svg" alt="TRIPLE COMMA" class="h-3.5 md:h-4" />
+        </a>
+        <div class="space-y-0 text-xs leading-snug md:space-y-0.5 md:text-sm md:leading-relaxed" style="color: var(--footer-dark);">
+          <p>(주)트리플콤마</p>
+          <p>서울특별시 강남구 테헤란로 447, 13층(KB우준타워)</p>
+          <p>대표 천우영</p>
+        </div>
+      </div>
+
+      <!-- ISMS 인증 섹션 -->
+      <div class="mb-6 inline-flex w-fit flex-row flex-wrap items-center gap-3 rounded-lg px-5 py-2.5 shadow-sm sm:gap-4" style="color: var(--footer-dark); background-color: #F4F4F4;">
+        <img src="img_isms.png" alt="ISMS 인증" class="h-8 w-auto shrink-0 sm:h-10" />
+        <div class="flex min-w-0 flex-col gap-0.5 text-xs sm:flex-row sm:items-center sm:gap-4 md:text-sm">
+          <span>인증번호 ISMS-KISA-2023-140</span>
+          <span class="hidden text-neutral-300 md:inline">|</span>
+          <span>유효기간 2023-10-05 ~ 2026-10-04</span>
+        </div>
+      </div>
+
+      <!-- 구분선 -->
+      <hr class="mb-4 border-neutral-200" />
+
+      <!-- 하단 섹션: 사업자정보 등 -->
+      <div class="flex flex-col gap-0.5 text-[11px] md:flex-row md:flex-wrap md:items-center md:gap-3 md:text-xs" style="color: var(--footer-light);">
+        <span>사업자등록번호 567-81-00991</span>
+        <span class="hidden text-neutral-300 md:inline">|</span>
+        <span>결혼중개업 신고 필증 번호 서울-강남-국내-24-0007호</span>
+        <span class="hidden text-neutral-300 md:inline">|</span>
+        <span>© Copyright 2025. Triplecomma Inc. All right reserved</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    const header = document.getElementById('header');
+    const scrollThreshold = 50;
+
+    function updateHeader() {
+      if (window.scrollY > scrollThreshold) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+
+    window.addEventListener('scroll', updateHeader);
+    updateHeader(); // 초기 상태 확인
+
+    // 모바일 햄버거 메뉴 토글 + 서비스 펼침/접기
+    (function initMobileMenu() {
+      var btn = document.getElementById('mobile-menu-btn');
+      var menu = document.getElementById('mobile-menu');
+      var closeBtn = document.getElementById('mobile-menu-close');
+      var serviceToggle = document.getElementById('mobile-service-toggle');
+      var serviceSub = document.getElementById('mobile-service-sub');
+      var serviceCaret = menu && menu.querySelector('.mobile-service-caret');
+      if (!btn || !menu) return;
+
+      function openMenu() {
+        menu.classList.remove('hidden');
+        menu.setAttribute('aria-hidden', 'false');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-label', '메뉴 닫기');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        menu.classList.add('hidden');
+        menu.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', '메뉴 열기');
+        document.body.style.overflow = '';
+        if (serviceSub && serviceToggle) {
+          serviceSub.classList.add('hidden');
+          serviceToggle.setAttribute('aria-expanded', 'false');
+          if (serviceCaret) serviceCaret.textContent = '▼';
+        }
+      }
+
+      btn.addEventListener('click', function() {
+        if (menu.classList.contains('hidden')) openMenu();
+        else closeMenu();
+      });
+
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+      menu.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      if (serviceToggle && serviceSub) {
+        serviceToggle.addEventListener('click', function() {
+          var isExpanded = serviceToggle.getAttribute('aria-expanded') === 'true';
+          if (isExpanded) {
+            serviceSub.classList.add('hidden');
+            serviceToggle.setAttribute('aria-expanded', 'false');
+            if (serviceCaret) serviceCaret.textContent = '▼';
+          } else {
+            serviceSub.classList.remove('hidden');
+            serviceToggle.setAttribute('aria-expanded', 'true');
+            if (serviceCaret) serviceCaret.textContent = '▲';
+          }
+        });
+      }
+    })();
+
+    // 유저 스토리 섹션: 스크롤 한 번에 텍스트·이미지 즉시 전환 (3개)
+    (function initStorySection() {
+      gsap.registerPlugin(ScrollTrigger);
+      const section = document.querySelector('.story-section');
+      const track = document.querySelector('.story-track');
+      const items = section ? section.querySelectorAll('.story-item') : [];
+      var img1 = document.getElementById('story-img-1');
+      var img2 = document.getElementById('story-img-2');
+      var img3 = document.getElementById('story-img-3');
+      var paginationEl = document.getElementById('story-pagination');
+      var total = items.length;
+      if (!section || !track || total < 1) return;
+
+      for (var i = 1; i < total; i++) gsap.set(items[i], { opacity: 0 });
+
+      function showStory(activeIndex) {
+        items.forEach(function(el, i) {
+          gsap.set(el, { opacity: i === activeIndex ? 1 : 0, y: 0 });
+          el.classList.toggle('is-active', i === activeIndex);
+        });
+        if (img1) gsap.set(img1, { opacity: activeIndex === 0 ? 1 : 0 });
+        if (img2) gsap.set(img2, { opacity: activeIndex === 1 ? 1 : 0 });
+        if (img3) gsap.set(img3, { opacity: activeIndex === 2 ? 1 : 0 });
+        if (paginationEl) paginationEl.textContent = (activeIndex + 1) + '/' + total;
+      }
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        end: '+=200%',
+        pin: true,
+        scrub: 1,
+        onEnter: function() { showStory(0); },
+        onUpdate: function(self) {
+          var p = self.progress;
+          var activeIndex = p < 1/3 ? 0 : (p < 2/3 ? 1 : 2);
+          showStory(activeIndex);
+        }
+      });
+    })();
+
+    // 연혁 타임라인: 스크롤 시 순차 등장 (GSAP + ScrollTrigger)
+    (function initHistoryTimeline() {
+      gsap.registerPlugin(ScrollTrigger);
+      const section = document.querySelector('.history-section');
+      const items = section ? section.querySelectorAll('.history-item') : [];
+      if (!items.length) return;
+
+      const isMobile = window.matchMedia('(max-width: 1023px)').matches;
+      const stagger = isMobile ? 0.2 : 0.2;
+      const duration = isMobile ? 0.75 : 0.85;
+      const yFrom = isMobile ? 48 : 60;
+
+      gsap.fromTo(items, {
+        opacity: 0,
+        y: yFrom,
+        force3D: true,
+      }, {
+        opacity: 1,
+        y: 0,
+        duration: duration,
+        stagger: stagger,
+        ease: 'power3.out',
+        force3D: true,
+        overwrite: 'auto',
+        onStart: function() {
+          items.forEach(function(el) { el.classList.add('is-visible'); });
+        },
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 75%',
+          end: 'bottom 25%',
+          once: true,
+          toggleActions: 'play none none none',
+        },
+      });
+    })();
+  </script>
+</body>
+</html>

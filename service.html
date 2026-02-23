@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>TRIPLE COMMA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <!-- Pretendard Font -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
+    .logo-invert {
+      filter: invert(1);
+      transition: filter 0.3s ease;
+    }
+    header.scrolled .logo-invert {
+      filter: none;
+    }
+    header.scrolled {
+      background-color: white;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    }
+    header.scrolled nav,
+    header.scrolled nav a {
+      color: black;
+    }
+    .mega-menu {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, -8px);
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+    }
+    .service-trigger:hover .mega-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+    .mobile-menu-btn span {
+      background-color: white;
+      transition: background-color 0.3s ease;
+    }
+    header.scrolled .mobile-menu-btn span {
+      background-color: black;
+    }
+    #mobile-menu .mobile-service-trigger[aria-expanded="true"] {
+      background-color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <!-- 서비스 Hero Section -->
+  <section class="relative min-h-screen overflow-hidden">
+    <!-- 배경 이미지 -->
+    <div class="absolute inset-0 -z-10">
+      <img src="bg_goldspoon.png" alt="" class="h-full w-full object-cover object-center" />
+    </div>
+    
+    <!-- 고정 헤더 - 푸터와 왼쪽 정렬 -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-300 md:py-4">
+      <div class="mx-auto flex max-w-5xl items-center justify-between px-5 md:px-12 lg:px-16">
+      <a href="index.html" class="flex items-center md:-ml-12 lg:-ml-16">
+        <img src="logo_triplecomma.svg" alt="TRIPLE COMMA" class="h-3.5 logo-invert md:h-4" />
+      </a>
+      <nav class="-mr-6 hidden items-center gap-[7.5rem] text-white transition-colors duration-300 md:-mr-12 md:flex lg:-mr-16">
+        <a href="index.html" class="text-sm font-medium transition-colors duration-300 hover:opacity-80 hover:underline md:text-base">회사 소개</a>
+        <div class="service-trigger relative inline-block">
+          <a href="service.html" class="text-sm font-medium transition-colors duration-300 hover:opacity-80 hover:underline md:text-base">서비스</a>
+          <div class="mega-menu absolute left-1/2 top-full pt-2">
+            <div class="w-72 rounded-2xl bg-white p-4 shadow-lg">
+            <a href="service.html" class="mb-2 flex items-center gap-4 rounded-xl px-3 py-3 transition hover:bg-neutral-200 last:mb-0">
+              <img src="logo_goldspoon.png" alt="골드스푼" class="h-12 w-12 shrink-0 rounded-lg object-contain" />
+              <div>
+                <p class="font-bold text-neutral-800">골드스푼</p>
+                <p class="text-sm text-neutral-500">검증기반 2030 데이팅앱</p>
+              </div>
+            </a>
+            <a href="#" class="mb-2 flex items-center gap-4 rounded-xl px-3 py-3 transition hover:bg-neutral-200 last:mb-0">
+              <img src="logo_themembers.png" alt="더멤버스" class="h-12 w-12 shrink-0 rounded-lg object-contain" />
+              <div>
+                <p class="font-bold text-neutral-800">더멤버스</p>
+                <p class="text-sm text-neutral-500">검증기반 3040 데이팅앱</p>
+              </div>
+            </a>
+            <a href="#" class="flex items-center gap-4 rounded-xl px-3 py-3 transition hover:bg-neutral-200">
+              <img src="logo_hillshigh.png" alt="힐즈하이" class="h-12 w-12 shrink-0 rounded-lg object-contain" />
+              <div>
+                <p class="font-bold text-neutral-800">힐즈하이</p>
+                <p class="text-sm text-neutral-500">검증기반 일본 데이팅앱</p>
+              </div>
+            </a>
+            </div>
+          </div>
+        </div>
+        <a href="career.html" class="text-sm font-medium transition-colors duration-300 hover:opacity-80 hover:underline md:text-base">채용</a>
+      </nav>
+      <div class="relative flex md:hidden">
+        <button type="button" class="mobile-menu-btn flex h-9 w-9 flex-col items-center justify-center gap-1 rounded-lg border-0 bg-transparent p-0" aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기" id="mobile-menu-btn">
+          <span class="block h-0.5 w-4 rounded-full"></span>
+          <span class="block h-0.5 w-4 rounded-full"></span>
+          <span class="block h-0.5 w-4 rounded-full"></span>
+        </button>
+      </div>
+      </div>
+      <div id="mobile-menu" class="fixed inset-0 z-[60] hidden bg-white md:hidden" aria-hidden="true">
+        <div class="flex h-full flex-col">
+          <div class="flex flex-shrink-0 items-center justify-between border-b border-neutral-200 px-5 py-4 md:px-6">
+            <a href="index.html" class="flex items-center" onclick="document.getElementById('mobile-menu').classList.add('hidden');">
+              <img src="logo_triplecomma.svg" alt="TRIPLE COMMA" class="h-4" />
+            </a>
+            <button type="button" class="flex h-10 w-10 items-center justify-center rounded-lg border-0 bg-transparent text-2xl text-neutral-600 hover:bg-neutral-100 hover:text-neutral-800" aria-label="메뉴 닫기" id="mobile-menu-close">×</button>
+          </div>
+          <nav class="flex-1 overflow-auto px-5 py-2 md:px-6">
+            <a href="index.html" class="block py-4 text-base font-medium text-neutral-800">회사소개</a>
+            <div class="py-1">
+              <button type="button" class="mobile-service-trigger flex w-full items-center justify-between rounded-lg px-0 py-4 text-left text-base font-bold text-neutral-800 -mx-5 px-5 md:-mx-6 md:px-6" aria-expanded="false" aria-controls="mobile-service-sub" id="mobile-service-toggle">
+                <span>서비스</span>
+                <span class="mobile-service-caret text-neutral-500" aria-hidden="true">▼</span>
+              </button>
+              <div id="mobile-service-sub" class="mobile-service-sub hidden overflow-hidden pl-4" style="border-left: 2px solid #e5e7eb;">
+                <a href="service.html" class="block py-2.5 text-sm text-neutral-700">골드스푼</a>
+                <a href="#" class="block py-2.5 text-sm text-neutral-700">더멤버스</a>
+                <a href="#" class="block py-2.5 text-sm text-neutral-700">힐즈하이</a>
+              </div>
+            </div>
+            <a href="career.html" class="block py-4 text-base font-medium text-neutral-800">채용</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- 메인 콘텐츠: 왼쪽 텍스트 + 오른쪽 목업 (푸터와 왼쪽 정렬) -->
+    <div class="flex min-h-screen flex-col items-center px-5 pt-2 md:flex-row md:items-center md:justify-between md:px-12 md:pt-4 lg:px-16">
+      <div class="mx-auto flex w-full max-w-5xl flex-col pt-2 md:flex-row md:items-center md:justify-between md:pt-4">
+      <!-- 왼쪽: 헤드라인 + 버튼 -->
+      <div class="z-10 mb-12 flex flex-1 flex-col md:mb-0 md:max-w-xl">
+        <h1 class="mb-6 text-[1.65rem] font-bold leading-tight text-white md:text-[2.6rem] lg:text-[3.35rem]" style="line-height: 1.4;">
+          국내 1위 하이엔드<br />데이팅앱 골드스푼
+        </h1>
+        <a href="https://goldspoon.io" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit rounded-full bg-white px-8 py-3.5 text-base font-medium text-black transition hover:bg-neutral-100 md:text-lg">
+          홈페이지 바로가기
+        </a>
+      </div>
+
+      <!-- 오른쪽: 모바일 목업 -->
+      <div class="flex flex-1 items-center justify-center md:absolute md:right-0 md:top-0 md:flex md:h-full md:w-[42%] md:items-end md:justify-end md:pt-6 md:pr-8 md:pb-0 lg:pr-12">
+        <img src="mockup_goldspoon.png" alt="골드스푼 앱 목업" class="h-[75vh] max-h-[680px] w-auto object-contain md:h-[88vh] md:max-h-[900px]" style="transform: scale(0.8) translate(-350px, 110px);" />
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer class="px-5 py-14 md:px-12 md:py-16 lg:px-16" style="--footer-dark: #4B4B4B; --footer-light: #9A9A9A; background-color: #fafafa;">
+    <div class="mx-auto max-w-5xl">
+      <div class="mb-5">
+        <a href="index.html" class="mb-[18px] block w-fit">
+          <img src="logo_triplecomma.svg" alt="TRIPLE COMMA" class="h-3.5 md:h-4" />
+        </a>
+        <div class="space-y-0 text-xs leading-snug md:space-y-0.5 md:text-sm md:leading-relaxed" style="color: var(--footer-dark);">
+          <p>(주)트리플콤마</p>
+          <p>서울특별시 강남구 테헤란로 447, 13층(KB우준타워)</p>
+          <p>대표 천우영</p>
+        </div>
+      </div>
+      <div class="mb-6 inline-flex w-fit flex-row flex-wrap items-center gap-3 rounded-lg px-5 py-2.5 shadow-sm sm:gap-4" style="color: var(--footer-dark); background-color: #F4F4F4;">
+        <img src="img_isms.png" alt="ISMS 인증" class="h-8 w-auto shrink-0 sm:h-10" />
+        <div class="flex min-w-0 flex-col gap-0.5 text-xs sm:flex-row sm:items-center sm:gap-4 md:text-sm">
+          <span>인증번호 ISMS-KISA-2023-140</span>
+          <span class="hidden text-neutral-300 md:inline">|</span>
+          <span>유효기간 2023-10-05 ~ 2026-10-04</span>
+        </div>
+      </div>
+      <hr class="mb-4 border-neutral-200" />
+      <div class="flex flex-col gap-0.5 text-[11px] md:flex-row md:flex-wrap md:items-center md:gap-3 md:text-xs" style="color: var(--footer-light);">
+        <span>사업자등록번호 567-81-00991</span>
+        <span class="hidden text-neutral-300 md:inline">|</span>
+        <span>결혼중개업 신고 필증 번호 서울-강남-국내-24-0007호</span>
+        <span class="hidden text-neutral-300 md:inline">|</span>
+        <span>© Copyright 2025. Triplecomma Inc. All right reserved</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('header');
+    const scrollThreshold = 50;
+    function updateHeader() {
+      header.classList.toggle('scrolled', window.scrollY > scrollThreshold);
+    }
+    window.addEventListener('scroll', updateHeader);
+    updateHeader();
+
+    (function initMobileMenu() {
+      var btn = document.getElementById('mobile-menu-btn');
+      var menu = document.getElementById('mobile-menu');
+      var closeBtn = document.getElementById('mobile-menu-close');
+      var serviceToggle = document.getElementById('mobile-service-toggle');
+      var serviceSub = document.getElementById('mobile-service-sub');
+      var serviceCaret = menu && menu.querySelector('.mobile-service-caret');
+      if (!btn || !menu) return;
+      function openMenu() {
+        menu.classList.remove('hidden');
+        menu.setAttribute('aria-hidden', 'false');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-label', '메뉴 닫기');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        menu.classList.add('hidden');
+        menu.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', '메뉴 열기');
+        document.body.style.overflow = '';
+        if (serviceSub && serviceToggle) {
+          serviceSub.classList.add('hidden');
+          serviceToggle.setAttribute('aria-expanded', 'false');
+          if (serviceCaret) serviceCaret.textContent = '▼';
+        }
+      }
+      btn.addEventListener('click', function() {
+        if (menu.classList.contains('hidden')) openMenu();
+        else closeMenu();
+      });
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+      menu.querySelectorAll('a').forEach(function(link) { link.addEventListener('click', closeMenu); });
+      if (serviceToggle && serviceSub) {
+        serviceToggle.addEventListener('click', function() {
+          var isExpanded = serviceToggle.getAttribute('aria-expanded') === 'true';
+          if (isExpanded) {
+            serviceSub.classList.add('hidden');
+            serviceToggle.setAttribute('aria-expanded', 'false');
+            if (serviceCaret) serviceCaret.textContent = '▼';
+          } else {
+            serviceSub.classList.remove('hidden');
+            serviceToggle.setAttribute('aria-expanded', 'true');
+            if (serviceCaret) serviceCaret.textContent = '▲';
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

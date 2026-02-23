@@ -30,14 +30,14 @@
     }
     header.scrolled nav,
     header.scrolled nav a {
-      color: black;
+      color: #151515;
     }
     .mobile-menu-btn span {
       background-color: white;
       transition: background-color 0.3s ease;
     }
     header.scrolled .mobile-menu-btn span {
-      background-color: black;
+      background-color: #151515;
     }
     /* box 로고 가로 흐름 애니메이션 */
     @keyframes scroll-left {
@@ -48,8 +48,8 @@
       animation: scroll-left 30s linear infinite;
     }
     .scroll-mask {
-      mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, #151515 5%, #151515 95%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #151515 5%, #151515 95%, transparent 100%);
     }
     /* 서비스 메가메뉴 - 서비스 텍스트 기준 중앙 정렬 */
     .mega-menu {
@@ -65,10 +65,21 @@
     }
     /* 모바일 메뉴 오버레이 - 서비스 펼침 시 배경 강조 */
     #mobile-menu .mobile-service-trigger[aria-expanded="true"] {
-      background-color: #ffffff;
+      background-color: #f5f5f5;
     }
     #mobile-menu .mobile-service-sub {
       transition: opacity 0.2s, max-height 0.25s ease;
+    }
+    /* 모바일 메뉴 항목 호버·클릭 시 회색 음영 */
+    #mobile-menu .mobile-nav-item {
+      border-radius: 0.5rem;
+      transition: background-color 0.15s ease;
+    }
+    #mobile-menu .mobile-nav-item:hover {
+      background-color: #f0f0f0;
+    }
+    #mobile-menu .mobile-nav-item:active {
+      background-color: #e5e5e5;
     }
     /* 히어로 배경 슬라이드쇼 (4장 순차 전환, 2초 간격, 줌인 이펙트) */
     .hero-bg-slide {
@@ -170,7 +181,7 @@
     }
     .story-section .story-subtitle-line {
       font-weight: 700;
-      color: #000;
+      color: #151515;
       font-size: 1rem;
       line-height: 1.5;
     }
@@ -274,14 +285,14 @@
               </div>
             </a>
             <a href="#" class="mb-2 flex items-center gap-4 rounded-xl px-3 py-3 transition hover:bg-neutral-200 last:mb-0">
-              <img src="logo_themembers.png" alt="더멤버스" class="h-12 w-12 shrink-0 rounded-lg object-contain" />
+              <img src="logo_themembers.png" alt="더멤버스" class="h-10 w-10 shrink-0 rounded-lg object-contain" />
               <div>
                 <p class="font-bold text-neutral-800">더멤버스</p>
                 <p class="text-sm text-neutral-500">검증기반 3040 데이팅앱</p>
               </div>
             </a>
             <a href="#" class="flex items-center gap-4 rounded-xl px-3 py-3 transition hover:bg-neutral-200">
-              <img src="logo_hillshigh.png" alt="힐즈하이" class="h-12 w-12 shrink-0 rounded-lg object-contain" />
+              <img src="logo_hillshigh.png" alt="힐즈하이" class="h-10 w-10 shrink-0 rounded-lg object-contain" />
               <div>
                 <p class="font-bold text-neutral-800">힐즈하이</p>
                 <p class="text-sm text-neutral-500">검증기반 일본 데이팅앱</p>
@@ -306,26 +317,32 @@
       <!-- 모바일 메뉴 오버레이 (전체 화면, 참고 레이아웃) -->
       <div id="mobile-menu" class="fixed inset-0 z-[60] hidden bg-white md:hidden" aria-hidden="true">
         <div class="flex h-full flex-col">
-          <div class="flex flex-shrink-0 items-center justify-between border-b border-neutral-200 px-5 py-4 md:px-6">
+          <div class="flex flex-shrink-0 items-center justify-between px-5 py-5 md:px-6">
             <a href="index.html" class="flex items-center" onclick="document.getElementById('mobile-menu').classList.add('hidden');">
-              <img src="logo_triplecomma.svg" alt="TRIPLE COMMA" class="h-4" />
+              <img src="logo_triplecomma.svg" alt="TRIPLE COMMA" class="h-4 text-[#151515]" />
             </a>
-            <button type="button" class="flex h-10 w-10 items-center justify-center rounded-lg border-0 bg-transparent text-2xl text-neutral-600 hover:bg-neutral-100 hover:text-neutral-800" aria-label="메뉴 닫기" id="mobile-menu-close">×</button>
+            <button type="button" class="mobile-nav-item flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border-0 bg-transparent text-2xl text-[#151515] hover:bg-[#f0f0f0] active:bg-[#e5e5e5]" aria-label="메뉴 닫기" id="mobile-menu-close">×</button>
           </div>
-          <nav class="flex-1 overflow-auto px-5 py-2 md:px-6">
-            <a href="index.html" class="block py-4 text-base font-medium text-neutral-800">회사소개</a>
+          <nav class="flex-1 overflow-auto px-5 py-3 md:px-6">
+            <a href="index.html" class="mobile-nav-item block rounded-lg px-4 py-4 text-lg font-bold text-[#151515]" onclick="document.getElementById('mobile-menu').classList.add('hidden');">회사소개</a>
             <div class="py-1">
-              <button type="button" class="mobile-service-trigger flex w-full items-center justify-between rounded-lg px-0 py-4 text-left text-base font-bold text-neutral-800 -mx-5 px-5 md:-mx-6 md:px-6" aria-expanded="false" aria-controls="mobile-service-sub" id="mobile-service-toggle">
-                <span>서비스</span>
-                <span class="mobile-service-caret text-neutral-500" aria-hidden="true">▼</span>
-              </button>
-              <div id="mobile-service-sub" class="mobile-service-sub hidden overflow-hidden pl-4" style="border-left: 2px solid #e5e7eb;">
-                <a href="service.html" class="block py-2.5 text-sm text-neutral-700">골드스푼</a>
-                <a href="#" class="block py-2.5 text-sm text-neutral-700">더멤버스</a>
-                <a href="#" class="block py-2.5 text-sm text-neutral-700">힐즈하이</a>
+              <p class="px-4 py-3 text-lg font-bold text-[#151515]">서비스</p>
+              <div id="mobile-service-sub" class="mobile-service-sub overflow-hidden pl-4 pt-1">
+                <a href="service.html" class="mobile-nav-item mb-1 flex items-center gap-4 rounded-lg px-4 py-3 text-left text-[#151515]" onclick="document.getElementById('mobile-menu').classList.add('hidden');">
+                  <img src="logo_goldspoon.png" alt="" class="h-8 w-8 shrink-0 rounded-lg object-contain" />
+                  <span class="font-semibold">골드스푼</span>
+                </a>
+                <a href="#" class="mobile-nav-item mb-1 flex items-center gap-4 rounded-lg px-4 py-3 text-left text-[#151515]">
+                  <img src="logo_themembers.png" alt="" class="h-8 w-8 shrink-0 rounded-lg object-contain" />
+                  <span class="font-semibold">더멤버스</span>
+                </a>
+                <a href="#" class="mobile-nav-item flex items-center gap-4 rounded-lg px-4 py-3 text-left text-[#151515]">
+                  <img src="logo_hillshigh.png" alt="" class="h-8 w-8 shrink-0 rounded-lg object-contain" />
+                  <span class="font-semibold">힐즈하이</span>
+                </a>
               </div>
             </div>
-            <a href="career.html" class="block py-4 text-base font-medium text-neutral-800">채용</a>
+            <a href="career.html" class="mobile-nav-item block rounded-lg px-4 py-4 text-lg font-bold text-[#151515]" onclick="document.getElementById('mobile-menu').classList.add('hidden');">채용</a>
           </nav>
         </div>
       </div>
@@ -356,35 +373,36 @@
         <h2 class="mb-10 text-left text-2xl font-bold leading-tight text-neutral-900 md:mb-12 md:text-3xl lg:text-4xl" style="line-height: 1.4;">
           우리는 인증형 데이팅앱의<br />새로운 패러다임을 만들어 왔습니다
         </h2>
-        <!-- 첫 줄 3개, 둘째 줄 2개 -->
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
-          <!-- 1행: 이미지 -->
-          <div class="overflow-hidden rounded-lg bg-neutral-100 shadow-sm">
-            <img src="img_info01.png" alt="" class="h-full w-full object-cover" />
-          </div>
-          <!-- 1행: MAU -->
-          <div class="rounded-lg bg-[#f8f8f8] p-6 shadow-sm md:p-8">
-            <p class="text-sm text-neutral-500 md:text-base">월간 활성 사용자 (MAU)</p>
-            <p class="mt-2 text-xl font-bold text-neutral-900 md:text-2xl">45,000+</p>
-          </div>
-          <!-- 1행: WAU -->
-          <div class="rounded-lg bg-[#f8f8f8] p-6 shadow-sm md:p-8">
-            <p class="text-sm text-neutral-500 md:text-base">주간 활성 사용자 (WAU)</p>
-            <p class="mt-2 text-xl font-bold text-neutral-900 md:text-2xl">33,000+</p>
-          </div>
-          <!-- 2행: 일 평균 사용 시간 -->
-          <div class="rounded-lg bg-[#f8f8f8] p-6 shadow-sm md:p-8">
-            <p class="text-sm text-neutral-500 md:text-base">일 평균 사용 시간</p>
-            <p class="mt-2 text-xl font-bold text-neutral-900 md:text-2xl">매일 25분+</p>
-          </div>
-          <!-- 2행: 주 평균 방문 횟수 + 이미지(오른쪽) -->
-          <div class="flex overflow-hidden rounded-lg bg-[#f8f8f8] shadow-sm md:col-span-2">
-            <div class="flex flex-1 flex-col justify-center p-6 md:p-8">
-              <p class="text-sm text-neutral-500 md:text-base">주 평균 방문 횟수</p>
-              <p class="mt-2 text-xl font-bold text-neutral-900 md:text-2xl">5일 이상 60%+</p>
+        <!-- 1행: 카드1(좁게) 카드2·3 / 2행: 카드4(넓게) 카드5 -->
+        <div class="flex flex-col gap-4 md:gap-5">
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-[0.8fr_1.1fr_1.1fr] md:gap-5">
+            <!-- 1행: 이미지 -->
+            <div class="h-[10rem] overflow-hidden rounded-2xl bg-neutral-100 shadow-sm md:h-[11rem]">
+              <img src="img_info01.png" alt="" class="h-full w-full object-cover" />
             </div>
-            <div class="relative h-48 w-full shrink-0 md:h-56 md:max-w-[45%]">
-              <img src="img_info02.png" alt="" class="h-full w-full object-cover object-right" />
+            <!-- 1행: MAU -->
+            <div class="flex h-[10rem] flex-col justify-end rounded-2xl bg-[#f8f8f8] p-6 pb-5 shadow-sm md:h-[11rem] md:p-8 md:pb-6">
+              <p class="text-sm text-neutral-500 md:text-base">월간 활성 사용자 (MAU)</p>
+              <p class="mt-2 text-3xl font-semibold text-neutral-900 md:text-4xl">45,000+</p>
+            </div>
+            <!-- 1행: WAU -->
+            <div class="flex h-[10rem] flex-col justify-end rounded-2xl bg-[#f8f8f8] p-6 pb-5 shadow-sm md:h-[11rem] md:p-8 md:pb-6">
+              <p class="text-sm text-neutral-500 md:text-base">주간 활성 사용자 (WAU)</p>
+              <p class="mt-2 text-3xl font-semibold text-neutral-900 md:text-4xl">33,000+</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-[1.25fr_1.75fr] md:gap-5">
+            <!-- 2행: 일 평균 사용 시간 (카드4만 넓게) -->
+            <div class="flex h-[10rem] flex-col justify-end rounded-2xl bg-[#f8f8f8] p-6 pb-5 shadow-sm md:h-[11rem] md:p-8 md:pb-6">
+              <p class="text-sm text-neutral-500 md:text-base">일 평균 사용 시간</p>
+              <p class="mt-2 text-3xl font-semibold text-neutral-900 md:text-4xl">매일 25분+</p>
+            </div>
+            <!-- 2행: 주 평균 방문 횟수 (이미지 배경 + 텍스트 오버레이) -->
+            <div class="relative h-[10rem] overflow-hidden rounded-2xl bg-neutral-200 shadow-sm md:h-[11rem]" style="background-image: url('img_info02.png'); background-size: cover; background-position: center;">
+              <div class="absolute inset-0 flex flex-col justify-end p-6 pb-5 md:p-8 md:pb-6">
+                <p class="text-sm text-neutral-600 md:text-base">주 평균 방문 횟수</p>
+                <p class="mt-2 text-3xl font-semibold text-[#151515] md:text-4xl">5일 이상 60%+</p>
+              </div>
             </div>
           </div>
         </div>
@@ -410,7 +428,7 @@
         <div class="mx-auto max-w-5xl">
           <!-- 텍스트 -->
           <div class="mb-6 flex flex-col gap-20 md:flex-row md:items-start md:gap-28">
-            <h2 class="shrink-0 text-2xl font-bold leading-tight text-black md:text-3xl lg:text-4xl" style="line-height: 1.4;">
+            <h2 class="shrink-0 text-2xl font-bold leading-tight text-[#151515] md:text-3xl lg:text-4xl" style="line-height: 1.4;">
               전문성과 공신력을 갖춘<br />기관과 함께합니다
             </h2>
             <p class="mt-0.5 text-neutral-600 md:max-w-xl md:text-base">
@@ -451,7 +469,7 @@
     <section id="user-story" class="story-section" aria-label="유저 이야기">
     <div class="story-track">
       <div class="mx-auto w-full max-w-5xl">
-        <h3 class="story-title mb-16 text-2xl font-bold leading-tight text-black md:text-3xl lg:text-4xl md:mb-20 lg:mb-24" style="line-height: 1.4;">
+        <h3 class="story-title mb-16 text-2xl font-bold leading-tight text-[#151515] md:text-3xl lg:text-4xl md:mb-20 lg:mb-24" style="line-height: 1.4;">
           우리는 누군가의 인생을<br />바꾸는 일을 하고 있습니다
         </h3>
         <div class="story-content-area">
@@ -496,7 +514,7 @@
                 <img id="story-img-1" src="img_user01.png" alt="유저 스토리 1" class="story-img w-full rounded-2xl object-cover" />
                 <img id="story-img-2" src="img_user02.png" alt="유저 스토리 2" class="story-img absolute inset-0 w-full rounded-2xl object-cover opacity-0" />
                 <img id="story-img-3" src="img_user03.png" alt="유저 스토리 3" class="story-img absolute inset-0 w-full rounded-2xl object-cover opacity-0" />
-                <span id="story-pagination" class="absolute bottom-3 right-3 rounded-full bg-black/60 px-3 py-1.5 text-sm font-medium text-white" aria-label="이미지 1 of 3">1/3</span>
+                <span id="story-pagination" class="absolute bottom-3 right-3 rounded-full bg-[#151515]/60 px-3 py-1.5 text-sm font-medium text-white" aria-label="이미지 1 of 3">1/3</span>
               </div>
             </div>
           </div>
@@ -511,7 +529,7 @@
         <div class="flex flex-col gap-16 lg:flex-row lg:gap-20">
           <!-- 왼쪽: 타이틀 + 주요 지표 -->
           <div class="flex-1 shrink-0">
-            <h2 class="mb-12 text-2xl font-bold leading-tight text-black md:text-3xl lg:text-4xl" style="line-height: 1.4;">
+            <h2 class="mb-12 text-2xl font-bold leading-tight text-[#151515] md:text-3xl lg:text-4xl" style="line-height: 1.4;">
               우리의 이야기는<br />지금부터 시작입니다
             </h2>
             <div class="space-y-10">
@@ -711,9 +729,6 @@
       var btn = document.getElementById('mobile-menu-btn');
       var menu = document.getElementById('mobile-menu');
       var closeBtn = document.getElementById('mobile-menu-close');
-      var serviceToggle = document.getElementById('mobile-service-toggle');
-      var serviceSub = document.getElementById('mobile-service-sub');
-      var serviceCaret = menu && menu.querySelector('.mobile-service-caret');
       if (!btn || !menu) return;
 
       function openMenu() {
@@ -730,11 +745,6 @@
         btn.setAttribute('aria-expanded', 'false');
         btn.setAttribute('aria-label', '메뉴 열기');
         document.body.style.overflow = '';
-        if (serviceSub && serviceToggle) {
-          serviceSub.classList.add('hidden');
-          serviceToggle.setAttribute('aria-expanded', 'false');
-          if (serviceCaret) serviceCaret.textContent = '▼';
-        }
       }
 
       btn.addEventListener('click', function() {
@@ -747,21 +757,6 @@
       menu.querySelectorAll('a').forEach(function(link) {
         link.addEventListener('click', closeMenu);
       });
-
-      if (serviceToggle && serviceSub) {
-        serviceToggle.addEventListener('click', function() {
-          var isExpanded = serviceToggle.getAttribute('aria-expanded') === 'true';
-          if (isExpanded) {
-            serviceSub.classList.add('hidden');
-            serviceToggle.setAttribute('aria-expanded', 'false');
-            if (serviceCaret) serviceCaret.textContent = '▼';
-          } else {
-            serviceSub.classList.remove('hidden');
-            serviceToggle.setAttribute('aria-expanded', 'true');
-            if (serviceCaret) serviceCaret.textContent = '▲';
-          }
-        });
-      }
     })();
 
     // 유저 스토리 섹션: 스크롤 한 번에 텍스트·이미지 즉시 전환 (3개)

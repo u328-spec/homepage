@@ -297,20 +297,22 @@
     /* 국내최대 2030 하이엔드 커뮤니티 섹션 */
     .goldspoon-lounge-section {
       background-color: #ffffff;
-      padding: 5rem 1.5rem 0;
+      padding: 6rem 1.5rem 0;
     }
     .goldspoon-lounge-inner {
       max-width: 1040px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
+      align-items: center;
+      justify-content: flex-start; /* 섹션 안에서 텍스트를 좀 더 위쪽에 */
       gap: 3rem;
     }
     .goldspoon-lounge-copy {
       flex: 1;
-      max-width: 420px;
+      max-width: 520px;
+      text-align: left;
+      margin-top: -1rem; /* 모든 해상도에서 텍스트를 살짝 위로 */
     }
     .goldspoon-lounge-kicker {
       font-size: 0.8rem;
@@ -347,7 +349,7 @@
     }
     @media (min-width: 768px) {
       .goldspoon-lounge-section {
-        padding: 6rem 3rem 0;
+        padding: 7rem 3rem 0;
       }
       .goldspoon-lounge-title {
         font-size: 2.1rem;
@@ -358,15 +360,18 @@
     }
     @media (min-width: 1024px) {
       .goldspoon-lounge-section {
-        padding: 7rem 4rem 0;
+        padding: 8rem 4rem 0; /* 데스크톱에서 상단 여백을 더 줌 */
       }
       .goldspoon-lounge-inner {
         flex-direction: row;
-        align-items: center;
+        align-items: center; /* 섹션 세로 중앙에 텍스트/이미지 배치 */
         gap: 5rem;
       }
+      .goldspoon-lounge-copy {
+        margin-top: -2rem; /* 데스크톱에서는 한 단계 더 위로 */
+      }
       .goldspoon-lounge-visual {
-        margin-top: 2.5rem;
+        margin-top: 0;
       }
       .goldspoon-lounge-title {
         font-size: 2.4rem;
@@ -377,7 +382,7 @@
     .goldspoon-near-section {
       position: relative;
       background-color: #FAFAFA;
-      padding: 5rem 1.5rem 0;
+      padding: 6rem 1.5rem 0;
     }
     .goldspoon-near-inner {
       position: relative;
@@ -385,13 +390,15 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
+      align-items: center;
+      justify-content: flex-start; /* 섹션 안에서 텍스트를 좀 더 위쪽에 */
       gap: 3rem;
     }
     .goldspoon-near-copy {
       flex: 1;
-      max-width: 420px;
+      max-width: 520px;
+      text-align: left;
+      margin-top: -1rem; /* 모든 해상도에서 텍스트를 살짝 위로 */
     }
     .goldspoon-near-title {
       font-size: 1.9rem;
@@ -421,7 +428,7 @@
     }
     @media (min-width: 768px) {
       .goldspoon-near-section {
-        padding: 6rem 3rem 0;
+        padding: 7rem 3rem 0;
       }
       .goldspoon-near-title {
         font-size: 2.1rem;
@@ -432,15 +439,18 @@
     }
     @media (min-width: 1024px) {
       .goldspoon-near-section {
-        padding: 7rem 4rem 0;
+        padding: 8rem 4rem 0; /* 데스크톱에서 상단 여백을 더 줌 */
       }
       .goldspoon-near-inner {
         flex-direction: row;
-        align-items: center;
+        align-items: center; /* 섹션 세로 중앙에 텍스트/이미지 배치 */
         gap: 5rem;
       }
+      .goldspoon-near-copy {
+        margin-top: -2rem; /* 데스크톱에서는 한 단계 더 위로 */
+      }
       .goldspoon-near-visual {
-        margin-top: 2.5rem;
+        margin-top: 0;
       }
       .goldspoon-near-title {
         font-size: 2.4rem;
@@ -450,7 +460,7 @@
     /* 골드스푼 다운로드 CTA 섹션 */
     .goldspoon-download-section {
       background-color: #312F2D;
-      padding: 0.9rem 1.5rem 0.9rem;
+      padding: 0.5rem 1.5rem 0.5rem;
       color: #ffffff;
       overflow: hidden;
     }
@@ -587,7 +597,7 @@
     }
     @media (min-width: 768px) {
       .goldspoon-download-section {
-        padding: 1.1rem 3rem 1.1rem;
+        padding: 0.8rem 3rem 0.8rem;
       }
       .goldspoon-download-inner {
         flex-direction: row;
@@ -604,7 +614,7 @@
     }
     @media (min-width: 1024px) {
       .goldspoon-download-section {
-        padding: 1.5rem 4rem 1.5rem;
+        padding: 1.1rem 4rem 1.1rem;
       }
       .goldspoon-download-inner {
         gap: 5rem;
@@ -757,7 +767,7 @@
         </div>
         <div class="card-badge">
           <img src="assets/img_badge03.png" alt="" />
-          <p class="card-label card-label-gold">아나운서</p>
+          <p class="card-label card-label-gold">엘리트 집안</p>
         </div>
         <p class="card-desc">법조계/의료계 부모님 직업 서류를 제출하여<br />엘리트 집안임을 인증했습니다</p>
       </article>

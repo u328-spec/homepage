@@ -142,24 +142,24 @@
       flex-direction: column;
       transition: transform 0.9s ease, opacity 0.9s ease;
     }
-    /* 가장 뒤 카드: 4번째 카드 (섹션 아래에서 대기, 각도 -9도) */
+    /* 가장 뒤 카드: 4번째 카드 (섹션 아래에서 대기, 각도 9도로 반전) */
     .goldspoon-card.card-stack-back2 {
       z-index: 0;
-      transform: translate(-50%, 120%) rotate(-9deg);
+      transform: translate(-50%, 120%) rotate(9deg);
       background: #C8C8C8;
       opacity: 0;
       pointer-events: none;
     }
-    /* 맨 뒤 카드: 3번째 카드, 각도 19도 */
+    /* 맨 뒤 카드: 3번째 카드, 각도 -19도 (반전) */
     .goldspoon-card.card-stack-back {
       z-index: 1;
-      transform: translate(-50%, -50%) translate(-22px, -10px) rotate(19deg);
+      transform: translate(-50%, -50%) translate(-22px, -10px) rotate(-19deg);
       background: #919191;
     }
-    /* 가운데 카드: 2번째 카드, 각도 9도 */
+    /* 가운데 카드: 2번째 카드, 각도 -9도 (반전) */
     .goldspoon-card.card-stack-mid {
       z-index: 2;
-      transform: translate(-50%, -50%) translate(-10px, -5px) rotate(9deg);
+      transform: translate(-50%, -50%) translate(-10px, -5px) rotate(-9deg);
       background: #C8C8C8;
     }
     /* 맨 앞 카드: 1번째 카드, 각도 0도 */
@@ -183,12 +183,13 @@
       }
     }
     .goldspoon-card.card-dropping {
-      animation: goldspoon-card-drop 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: goldspoon-card-drop 2.7s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 99; /* 드롭 중에는 항상 최상단에 보이도록 */
     }
-    /* 4번 카드: 아래에서 위로 올라와 3번 위치(19도)가 되는 모션 */
+    /* 4번 카드: 아래에서 위로 올라와 3번 위치(-19도, 반전)로 가는 모션 */
     @keyframes goldspoon-card-rise {
       0% {
-        transform: translate(-50%, 120%) rotate(-9deg);
+        transform: translate(-50%, 120%) rotate(9deg);
         opacity: 0;
       }
       20% {
@@ -196,12 +197,12 @@
         opacity: 1;
       }
       100% {
-        transform: translate(-50%, -50%) translate(-22px, -10px) rotate(19deg);
+        transform: translate(-50%, -50%) translate(-22px, -10px) rotate(-19deg);
         opacity: 1;
       }
     }
     .goldspoon-card.card-rising {
-      animation: goldspoon-card-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: goldspoon-card-rise 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .goldspoon-card .card-title {
       padding: 1.6rem 1.25rem 0.75rem;
@@ -925,37 +926,37 @@
     (function initGoldspoonCardStack() {
       var wrap = document.getElementById('goldspoon-cards-wrap');
       if (!wrap) return;
-
+ 
       var front = wrap.querySelector('.card-stack-front');
       var mid = wrap.querySelector('.card-stack-mid');
       var back = wrap.querySelector('.card-stack-back');
       var back2 = wrap.querySelector('.card-stack-back2');
       if (!front || !mid || !back || !back2) return;
-
+ 
       var cards = [front, mid, back, back2];
       var stackClasses = ['card-stack-front', 'card-stack-mid', 'card-stack-back', 'card-stack-back2'];
       var intervalId = null;
-
+ 
       // 직전 상태 저장용: 이전 프레임의 front, back2
       var previousFront = cards[0];
       var previousBack2 = cards[3];
-
+ 
       function clearCardClasses() {
         cards.forEach(function(card) {
           stackClasses.forEach(function(cls) { card.classList.remove(cls); });
           card.classList.remove('card-dropping', 'card-rising');
         });
       }
-
+ 
       function applyStack(withAnimation) {
         clearCardClasses();
-
+ 
         // 새 스택 위치 부여 (1~4번 상태)
         if (cards[0]) cards[0].classList.add('card-stack-front');  // 0도
         if (cards[1]) cards[1].classList.add('card-stack-mid');    // 9도
         if (cards[2]) cards[2].classList.add('card-stack-back');   // 19도
         if (cards[3]) cards[3].classList.add('card-stack-back2');  // -9도, 아래
-
+ 
         if (withAnimation) {
           // 1번 카드: 직전 front를 아래로 떨어뜨리기
           if (previousFront) {
@@ -966,7 +967,7 @@
               dropped.removeEventListener('animationend', handleDropEnd);
             });
           }
-
+ 
           // 4번 카드: 직전 back2 를 위로 올리기
           if (previousBack2) {
             var rising = previousBack2;
@@ -977,26 +978,33 @@
             });
           }
         }
-
+ 
         // 이번 프레임의 front, back2를 다음 루프용으로 저장
         previousFront = cards[0];
         previousBack2 = cards[3];
       }
-
-      // 처음 한 번은 애니메이션 없이 위치만 세팅
+ 
+      // 처음 한 번은 정적인 스택 위치만 세팅
       applyStack(false);
+
+      // 한 번의 스택 회전 + 드롭/라이즈 모션 실행
+      function step() {
+        if (cards.length !== 4) return;
+        // front -> back2, mid -> front, back -> mid, back2 -> back 순서로 회전
+        cards.push(cards.shift());
+        applyStack(true);
+      }
 
       function startLoop() {
         if (intervalId !== null) return;
 
-        intervalId = setInterval(function step() {
-          if (cards.length !== 4) return;
-          // front -> back2, mid -> front, back -> mid, back2 -> back 순서로 회전
-          cards.push(cards.shift());
-          applyStack(true);
-        }, 2000);
-      }
+        // 페이지 진입 직후 한 번 바로 모션 시작
+        step();
 
+        // 이후에는 2.8초 간격으로 반복 (전체 속도 소폭 증가)
+        intervalId = setInterval(step, 2800);
+      }
+ 
       // 골드스푼 페이지 로드 시 바로 애니메이션 시작
       startLoop();
     })();

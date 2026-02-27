@@ -59,6 +59,563 @@
     #mobile-menu .mobile-nav-item:active {
       background-color: #e5e5e5;
     }
+
+    /* 서비스 - 골드스푼 카드 섹션 - 노트북 가득 */
+    .goldspoon-cards-section {
+      background-color: #151515;
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 2rem 6rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    @media (min-width: 768px) {
+      .goldspoon-cards-section {
+        padding: 7rem 4rem 8rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .goldspoon-cards-section {
+        padding: 9rem 6rem 10rem;
+      }
+    }
+    .goldspoon-cards-section::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 45%;
+      background: linear-gradient(to top, #645427 0%, rgba(100, 84, 39, 0) 100%);
+      pointer-events: none;
+    }
+    .goldspoon-cards-title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+      z-index: 1;
+      line-height: 1.35;
+    }
+    @media (min-width: 768px) {
+      .goldspoon-cards-title { font-size: 1.75rem; margin-bottom: 3rem; }
+    }
+    .goldspoon-cards-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 230px;
+      margin: 1.75rem auto 0;
+      aspect-ratio: 3 / 4;
+      min-height: 340px;
+      width: 100%;
+    }
+    @media (min-width: 768px) {
+      .goldspoon-cards-wrap {
+        max-width: 270px;
+        min-height: 400px;
+        margin-top: 2rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .goldspoon-cards-wrap {
+        max-width: 310px;
+        min-height: 460px;
+        margin-top: 2.25rem;
+      }
+    }
+    .goldspoon-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 100%;
+      max-width: 100%;
+      height: 100%;
+      background: white;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.9s ease, opacity 0.9s ease;
+    }
+    /* 가장 뒤 카드: 4번째 카드 (섹션 아래에서 대기, 각도 -9도) */
+    .goldspoon-card.card-stack-back2 {
+      z-index: 0;
+      transform: translate(-50%, 120%) rotate(-9deg);
+      background: #C8C8C8;
+      opacity: 0;
+      pointer-events: none;
+    }
+    /* 맨 뒤 카드: 3번째 카드, 각도 19도 */
+    .goldspoon-card.card-stack-back {
+      z-index: 1;
+      transform: translate(-50%, -50%) translate(-22px, -10px) rotate(19deg);
+      background: #919191;
+    }
+    /* 가운데 카드: 2번째 카드, 각도 9도 */
+    .goldspoon-card.card-stack-mid {
+      z-index: 2;
+      transform: translate(-50%, -50%) translate(-10px, -5px) rotate(9deg);
+      background: #C8C8C8;
+    }
+    /* 맨 앞 카드: 1번째 카드, 각도 0도 */
+    .goldspoon-card.card-stack-front {
+      z-index: 3;
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    /* 1번 카드: 제 자리에서 아래로 떨어져 4번 위치(-9도)로 */
+    @keyframes goldspoon-card-drop {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+        opacity: 1;
+      }
+      80% {
+        transform: translate(-50%, 110%) rotate(-9deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, 120%) rotate(-9deg);
+        opacity: 0;
+      }
+    }
+    .goldspoon-card.card-dropping {
+      animation: goldspoon-card-drop 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    /* 4번 카드: 아래에서 위로 올라와 3번 위치(19도)가 되는 모션 */
+    @keyframes goldspoon-card-rise {
+      0% {
+        transform: translate(-50%, 120%) rotate(-9deg);
+        opacity: 0;
+      }
+      20% {
+        transform: translate(-50%, 110%) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) translate(-22px, -10px) rotate(19deg);
+        opacity: 1;
+      }
+    }
+    .goldspoon-card.card-rising {
+      animation: goldspoon-card-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .goldspoon-card .card-title {
+      padding: 1.6rem 1.25rem 0.75rem;
+      text-align: center;
+      font-weight: 700;
+      color: #151515;
+      font-size: 1.15rem;
+      line-height: 1.35;
+      flex-shrink: 0;
+    }
+    .goldspoon-card .card-img-wrap {
+      padding: 0.25rem 1rem 0.7rem;
+      border-radius: 0 0 1rem 1rem;
+      flex: 0 0 auto; /* 이미지 영역은 내용 높이만 차지 */
+      display: flex;
+      flex-direction: column;
+    }
+    .goldspoon-card .card-img-wrap img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: 1rem;
+      display: block;
+    }
+    /* img_profile01~04: 세로는 조금 더 길게, 뱃지 위까지만 오도록 제한 */
+    .goldspoon-card .card-img-wrap img[src$="img_profile01.png"],
+    .goldspoon-card .card-img-wrap img[src$="img_profile02.png"],
+    .goldspoon-card .card-img-wrap img[src$="img_profile03.png"],
+    .goldspoon-card .card-img-wrap img[src$="img_profile04.png"] {
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      max-height: 220px; /* 필요하면 이 값만 조정해서 미세 튜닝 */
+    }
+    .goldspoon-card .card-badge {
+      padding: 0.25rem 1.25rem 0.5rem;
+      margin-top: auto; /* 카드 안에서 뱃지 블록을 아래로 붙이기 */
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .goldspoon-card .card-badge img {
+      width: auto;
+      height: 40px;
+      margin: 0 auto 0.25rem;
+      display: block;
+      object-fit: contain;
+    }
+    .goldspoon-card .card-label {
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .goldspoon-card .card-label.card-label-gold {
+      color: #EBBF59;
+    }
+    .goldspoon-card .card-desc {
+      padding: 0 1.25rem 2.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      color: #666;
+      flex-shrink: 0;
+      margin: 0;
+    }
+
+    /* 까다로워도 돼요 섹션 */
+    .goldspoon-intro-section {
+      background-color: #ffffff;
+      padding: 4rem 1.25rem;
+      text-align: center;
+    }
+    .goldspoon-intro-section .intro-logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.75rem;
+      display: block;
+      border-radius: 0.75rem;
+      object-fit: contain;
+    }
+    .goldspoon-intro-section .intro-headline {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #151515;
+      line-height: 1.35;
+      margin: 0;
+    }
+    @media (min-width: 768px) {
+      .goldspoon-intro-section { padding: 5rem 1.5rem; }
+      .goldspoon-intro-section .intro-logo { width: 80px; height: 80px; margin-bottom: 2rem; }
+      .goldspoon-intro-section .intro-headline { font-size: 1.75rem; }
+    }
+
+    /* 국내최대 2030 하이엔드 커뮤니티 섹션 */
+    .goldspoon-lounge-section {
+      background-color: #ffffff;
+      padding: 5rem 1.5rem 0;
+    }
+    .goldspoon-lounge-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 3rem;
+    }
+    .goldspoon-lounge-copy {
+      flex: 1;
+      max-width: 420px;
+    }
+    .goldspoon-lounge-kicker {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #b3b3b3;
+      margin-bottom: 1.25rem;
+    }
+    .goldspoon-lounge-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #151515;
+      margin-bottom: 1.75rem;
+    }
+    .goldspoon-lounge-desc {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: #6b6b6b;
+      white-space: pre-line;
+    }
+    .goldspoon-lounge-visual {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+    .goldspoon-lounge-mockup {
+      width: 100%;
+      max-width: 360px;
+      height: auto;
+      object-fit: contain;
+    }
+    @media (min-width: 768px) {
+      .goldspoon-lounge-section {
+        padding: 6rem 3rem 0;
+      }
+      .goldspoon-lounge-title {
+        font-size: 2.1rem;
+      }
+      .goldspoon-lounge-desc {
+        font-size: 1.05rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .goldspoon-lounge-section {
+        padding: 7rem 4rem 0;
+      }
+      .goldspoon-lounge-inner {
+        flex-direction: row;
+        align-items: center;
+        gap: 5rem;
+      }
+      .goldspoon-lounge-visual {
+        margin-top: 2.5rem;
+      }
+      .goldspoon-lounge-title {
+        font-size: 2.4rem;
+      }
+    }
+
+    /* 내 주변 상위 1% 탐색 섹션 */
+    .goldspoon-near-section {
+      position: relative;
+      background-color: #FAFAFA;
+      padding: 5rem 1.5rem 0;
+    }
+    .goldspoon-near-inner {
+      position: relative;
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 3rem;
+    }
+    .goldspoon-near-copy {
+      flex: 1;
+      max-width: 420px;
+    }
+    .goldspoon-near-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #151515;
+      margin-bottom: 1.75rem;
+    }
+    .goldspoon-near-desc {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: #6b6b6b;
+      white-space: pre-line;
+    }
+    .goldspoon-near-visual {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+    .goldspoon-near-mockup {
+      width: 100%;
+      max-width: 360px;
+      height: auto;
+      object-fit: contain;
+    }
+    @media (min-width: 768px) {
+      .goldspoon-near-section {
+        padding: 6rem 3rem 0;
+      }
+      .goldspoon-near-title {
+        font-size: 2.1rem;
+      }
+      .goldspoon-near-desc {
+        font-size: 1.05rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .goldspoon-near-section {
+        padding: 7rem 4rem 0;
+      }
+      .goldspoon-near-inner {
+        flex-direction: row;
+        align-items: center;
+        gap: 5rem;
+      }
+      .goldspoon-near-visual {
+        margin-top: 2.5rem;
+      }
+      .goldspoon-near-title {
+        font-size: 2.4rem;
+      }
+    }
+
+    /* 골드스푼 다운로드 CTA 섹션 */
+    .goldspoon-download-section {
+      background-color: #312F2D;
+      padding: 0.9rem 1.5rem 0.9rem;
+      color: #ffffff;
+      overflow: hidden;
+    }
+    .goldspoon-download-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 3rem;
+    }
+    .goldspoon-download-copy {
+      flex: 0 0 360px;
+      max-width: 360px;
+    }
+    .goldspoon-download-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 1rem;
+      margin-bottom: 1.5rem;
+      object-fit: cover;
+    }
+    .goldspoon-download-title-main {
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin: 0 0 0.4rem;
+    }
+    .goldspoon-download-title-sub {
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #EBBF59;
+      margin: 0 0 2rem;
+    }
+    .goldspoon-download-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.9rem;
+      border-radius: 9999px;
+      background-color: #ffffff;
+      color: #151515;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+    .goldspoon-download-button:hover {
+      background-color: #f5f5f5;
+      transform: translateY(-1px);
+    }
+    .goldspoon-download-visual {
+      flex: 1.4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+    .goldspoon-download-mockup {
+      max-width: 720px;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* 앱 다운로드 QR 모달 */
+    .download-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 60;
+    }
+    .download-modal {
+      background: #ffffff;
+      border-radius: 1.25rem;
+      padding: 1.75rem 1.5rem 1.5rem;
+      max-width: 360px;
+      width: calc(100% - 2.5rem);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+      position: relative;
+      text-align: center;
+    }
+    .download-modal-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 0 0 0.6rem;
+      color: #151515;
+    }
+    .download-modal-subtitle {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #b3b3b3;
+      margin: 0 0 1.3rem;
+    }
+    .download-modal-qr {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 0.5rem;
+      display: block;
+    }
+    .download-modal-close {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.9rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 9999px;
+      border: none;
+      background: transparent;
+      font-size: 1.2rem;
+      line-height: 1;
+      cursor: pointer;
+      color: #7a7a7a;
+    }
+    .download-modal-close:hover {
+      background: #f3f3f3;
+    }
+    @media (min-width: 768px) {
+      .download-modal {
+        padding: 2rem 1.75rem 1.75rem;
+      }
+      .download-modal-title {
+        font-size: 1.45rem;
+      }
+      .download-modal-qr {
+        width: 240px;
+        height: 240px;
+      }
+    }
+    @media (min-width: 768px) {
+      .goldspoon-download-section {
+        padding: 1.1rem 3rem 1.1rem;
+      }
+      .goldspoon-download-inner {
+        flex-direction: row;
+        align-items: center;
+        gap: 4rem;
+      }
+      .goldspoon-download-visual {
+        margin-top: 2.5rem;
+      }
+      .goldspoon-download-title-main,
+      .goldspoon-download-title-sub {
+        font-size: 2.1rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .goldspoon-download-section {
+        padding: 1.5rem 4rem 1.5rem;
+      }
+      .goldspoon-download-inner {
+        gap: 5rem;
+      }
+      .goldspoon-download-visual {
+        margin-top: 3rem;
+      }
+      .goldspoon-download-title-main,
+      .goldspoon-download-title-sub {
+        font-size: 2.4rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -169,6 +726,134 @@
     </div>
   </section>
 
+  <!-- 까다로워도 돼요 - 골드스푼 소개 섹션 -->
+  <section class="goldspoon-intro-section" aria-label="골드스푼 소개">
+    <img src="logo_goldspoon.png" alt="GOLDSPOON" class="intro-logo" />
+    <p class="intro-headline">까다로워도 돼요.<br />기준과 취향이 맞는 사람을<br />골드스푼에서 만나세요.</p>
+  </section>
+
+  <!-- 서비스 - 골드스푼 인증 카드 (스택) -->
+  <section class="goldspoon-cards-section" id="goldspoon-cards" aria-label="골드스푼 인증 카드">
+    <h2 class="goldspoon-cards-title">엄격한 심사로<br />선별된 회원 퀄리티</h2>
+    <div class="goldspoon-cards-wrap" id="goldspoon-cards-wrap">
+      <!-- 가장 뒤: 부동산, 주식 인증 카드 -->
+      <article class="goldspoon-card card-stack-back2" role="group" aria-label="부동산, 주식 인증한 사업가">
+        <p class="card-title">부동산, 주식 인증한<br />사업가</p>
+        <div class="card-img-wrap">
+          <img src="assets/img_profile04.png" alt="" />
+        </div>
+        <div class="card-badge">
+          <img src="assets/img_badge04.png" alt="" />
+          <p class="card-label card-label-gold">100억+ 초고액자산</p>
+        </div>
+        <p class="card-desc">소유권을 증명할 수 있는 부동산 등기서류<br />등을 제출하여 자산을 인증했습니다</p>
+      </article>
+      <!-- 맨 뒤: 엘리트 집안 인증 카드 -->
+      <article class="goldspoon-card card-stack-back" role="group" aria-label="엘리트 집안 인증한 아나운서">
+        <p class="card-title">엘리트 집안 인증한<br />아나운서</p>
+        <div class="card-img-wrap">
+          <img src="assets/img_profile03.png" alt="" />
+        </div>
+        <div class="card-badge">
+          <img src="assets/img_badge03.png" alt="" />
+          <p class="card-label card-label-gold">아나운서</p>
+        </div>
+        <p class="card-desc">법조계/의료계 부모님 직업 서류를 제출하여<br />엘리트 집안임을 인증했습니다</p>
+      </article>
+      <!-- 가운데: 의사 면허증 인증 카드 -->
+      <article class="goldspoon-card card-stack-mid" role="group" aria-label="의사 면허증 인증한 전문직">
+        <p class="card-title">의사 면허증 인증한<br />전문직</p>
+        <div class="card-img-wrap">
+          <img src="assets/img_profile02.png" alt="" />
+        </div>
+        <div class="card-badge">
+          <img src="assets/img_badge02.png" alt="" />
+          <p class="card-label card-label-gold">전문직</p>
+        </div>
+        <p class="card-desc">본인 성명이 표기된 의사 면허증 자료를 통해<br />전문직종임을 인증했습니다</p>
+      </article>
+      <!-- 맨 앞: 미스코리아 인증 카드, 0° -->
+      <article class="goldspoon-card card-stack-front" role="group" aria-label="미스코리아 인증 현직 모델">
+        <p class="card-title">미스코리아 인증한<br />현직 모델</p>
+        <div class="card-img-wrap">
+          <img src="assets/img_profile01.png" alt="" />
+        </div>
+        <div class="card-badge">
+          <img src="assets/img_badge01.png" alt="" />
+          <p class="card-label card-label-gold">인플루언서</p>
+        </div>
+        <p class="card-desc">본인의 이름과 사진이 기재된 자료 제출하여<br />미스코리아 출신임을 인증했습니다</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 국내최대 2030 하이엔드 커뮤니티 섹션 -->
+  <section class="goldspoon-lounge-section" aria-label="국내최대 2030 하이엔드 커뮤니티">
+    <div class="goldspoon-lounge-inner">
+      <div class="goldspoon-lounge-copy">
+        <h2 class="goldspoon-lounge-title">
+          국내최대 2030<br />
+          하이엔드 커뮤니티
+        </h2>
+        <p class="goldspoon-lounge-desc">
+상위권 남녀만 모인 프리미엄 라운지에서
+실시간으로 대화를 나눠보세요. 다양한 주제의 소통부터
+마음에 드는 이성과의 인연까지 자연스럽게 이어집니다.
+        </p>
+      </div>
+      <div class="goldspoon-lounge-visual" aria-hidden="true">
+        <img src="mockup_lounge.png" alt="" class="goldspoon-lounge-mockup" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 내 주변 상위 1% 탐색 섹션 -->
+  <section class="goldspoon-near-section" aria-label="내 주변 상위 1% 탐색">
+    <div class="goldspoon-near-inner">
+      <div class="goldspoon-near-copy">
+        <h2 class="goldspoon-near-title">
+          내주변<br />
+          상위 1% 탐색
+        </h2>
+        <p class="goldspoon-near-desc">
+내 주변의 상위 1% 이성을 빠르게
+탐색해보세요. 조건과 매력을 갖춘 상대를
+한눈에 확인할 수 있어요.
+        </p>
+      </div>
+      <div class="goldspoon-near-visual" aria-hidden="true">
+        <img src="mockup_near.png" alt="내 주변 상위 1% 탐색 목업" class="goldspoon-near-mockup" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 골드스푼 다운로드 CTA 섹션 -->
+  <section class="goldspoon-download-section" aria-label="골드스푼 다운로드 안내">
+    <div class="goldspoon-download-inner">
+      <div class="goldspoon-download-copy">
+        <img src="logo_goldspoon.png" alt="골드스푼 로고" class="goldspoon-download-logo" />
+        <p class="goldspoon-download-title-main">선별된 남녀들의 만남</p>
+        <p class="goldspoon-download-title-sub">골드스푼</p>
+        <a href="#" class="goldspoon-download-button" id="goldspoon-download-btn">
+          앱 다운로드하기
+        </a>
+      </div>
+      <div class="goldspoon-download-visual" aria-hidden="true">
+        <img src="img_gs_download.png" alt="골드스푼 앱 다운로드 목업" class="goldspoon-download-mockup" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 골드스푼 앱 다운로드 QR 모달 -->
+  <div id="download-modal-backdrop" class="download-modal-backdrop hidden" aria-hidden="true">
+    <div class="download-modal" role="dialog" aria-modal="true" aria-labelledby="download-modal-title">
+      <button type="button" class="download-modal-close" id="download-modal-close" aria-label="닫기">×</button>
+      <h3 id="download-modal-title" class="download-modal-title">골드스푼 앱 다운로드</h3>
+      <p class="download-modal-subtitle">QR 코드를 스캔하여 다운로드 해주세요</p>
+      <img src="themembers_onelink_qr.svg" alt="골드스푼 앱 다운로드 QR 코드" class="download-modal-qr" />
+    </div>
+  </div>
+
   <!-- 푸터 -->
   <footer class="px-5 py-14 md:px-12 md:py-16 lg:px-16" style="--footer-dark: #4B4B4B; --footer-light: #9A9A9A; background-color: #fafafa;">
     <div class="mx-auto max-w-5xl">
@@ -236,6 +921,114 @@
       if (closeBtn) closeBtn.addEventListener('click', closeMenu);
       menu.querySelectorAll('a').forEach(function(link) { link.addEventListener('click', closeMenu); });
     })();
+
+    (function initGoldspoonCardStack() {
+      var wrap = document.getElementById('goldspoon-cards-wrap');
+      if (!wrap) return;
+
+      var front = wrap.querySelector('.card-stack-front');
+      var mid = wrap.querySelector('.card-stack-mid');
+      var back = wrap.querySelector('.card-stack-back');
+      var back2 = wrap.querySelector('.card-stack-back2');
+      if (!front || !mid || !back || !back2) return;
+
+      var cards = [front, mid, back, back2];
+      var stackClasses = ['card-stack-front', 'card-stack-mid', 'card-stack-back', 'card-stack-back2'];
+      var intervalId = null;
+
+      // 직전 상태 저장용: 이전 프레임의 front, back2
+      var previousFront = cards[0];
+      var previousBack2 = cards[3];
+
+      function clearCardClasses() {
+        cards.forEach(function(card) {
+          stackClasses.forEach(function(cls) { card.classList.remove(cls); });
+          card.classList.remove('card-dropping', 'card-rising');
+        });
+      }
+
+      function applyStack(withAnimation) {
+        clearCardClasses();
+
+        // 새 스택 위치 부여 (1~4번 상태)
+        if (cards[0]) cards[0].classList.add('card-stack-front');  // 0도
+        if (cards[1]) cards[1].classList.add('card-stack-mid');    // 9도
+        if (cards[2]) cards[2].classList.add('card-stack-back');   // 19도
+        if (cards[3]) cards[3].classList.add('card-stack-back2');  // -9도, 아래
+
+        if (withAnimation) {
+          // 1번 카드: 직전 front를 아래로 떨어뜨리기
+          if (previousFront) {
+            var dropped = previousFront;
+            dropped.classList.add('card-dropping');
+            dropped.addEventListener('animationend', function handleDropEnd() {
+              dropped.classList.remove('card-dropping');
+              dropped.removeEventListener('animationend', handleDropEnd);
+            });
+          }
+
+          // 4번 카드: 직전 back2 를 위로 올리기
+          if (previousBack2) {
+            var rising = previousBack2;
+            rising.classList.add('card-rising');
+            rising.addEventListener('animationend', function handleRiseEnd() {
+              rising.classList.remove('card-rising');
+              rising.removeEventListener('animationend', handleRiseEnd);
+            });
+          }
+        }
+
+        // 이번 프레임의 front, back2를 다음 루프용으로 저장
+        previousFront = cards[0];
+        previousBack2 = cards[3];
+      }
+
+      // 처음 한 번은 애니메이션 없이 위치만 세팅
+      applyStack(false);
+
+      function startLoop() {
+        if (intervalId !== null) return;
+
+        intervalId = setInterval(function step() {
+          if (cards.length !== 4) return;
+          // front -> back2, mid -> front, back -> mid, back2 -> back 순서로 회전
+          cards.push(cards.shift());
+          applyStack(true);
+        }, 2000);
+      }
+
+      // 골드스푼 페이지 로드 시 바로 애니메이션 시작
+      startLoop();
+    })();
+
+    // 골드스푼 앱 다운로드 모달
+    (function initDownloadModal() {
+      var openBtn = document.getElementById('goldspoon-download-btn');
+      var backdrop = document.getElementById('download-modal-backdrop');
+      var closeBtn = document.getElementById('download-modal-close');
+      if (!openBtn || !backdrop) return;
+
+      function openModal(e) {
+        if (e) e.preventDefault();
+        backdrop.classList.remove('hidden');
+        backdrop.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeModal() {
+        backdrop.classList.add('hidden');
+        backdrop.setAttribute('aria-hidden', 'true');
+      }
+
+      openBtn.addEventListener('click', openModal);
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      backdrop.addEventListener('click', function(e) {
+        if (e.target === backdrop) closeModal();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+      });
+    })();
+
   </script>
 </body>
 </html>

@@ -127,6 +127,12 @@
     .history-section .history-item.is-visible {
       will-change: auto;
     }
+    .history-section .history-month-num {
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+      -webkit-font-feature-settings: "tnum";
+      text-align: right;
+    }
     /* 유저 스토리 스크롤 핀 섹션 (당근 about 스타일) */
     .story-section {
       background-color: #fff;
@@ -161,9 +167,11 @@
       padding: 0;
       pointer-events: none;
       will-change: transform, opacity;
+      z-index: 0;
     }
     .story-section .story-item.is-active {
       pointer-events: auto;
+      z-index: 2;
     }
     .story-section .story-images {
       position: relative;
@@ -176,8 +184,17 @@
     @media (min-width: 1024px) {
       .story-section .story-images { margin-top: -16rem; }
     }
+    .story-section .story-images .story-img-wrap {
+      overflow: hidden;
+    }
+    .story-section .story-images .story-img-strip {
+      will-change: transform;
+    }
     .story-section .story-images .story-img {
-      transition: none;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .story-section .story-subtitle-line {
       font-weight: 700;
@@ -380,28 +397,38 @@
             <div class="h-[10rem] overflow-hidden rounded-2xl bg-neutral-100 shadow-sm md:h-[11rem]">
               <img src="img_info01.png" alt="" class="h-full w-full object-cover" />
             </div>
+            <!-- 1행: 누적 회원 수 -->
+            <div class="flex h-[10rem] flex-col justify-end rounded-2xl bg-[#f8f8f8] p-6 pb-5 shadow-sm md:h-[11rem] md:p-8 md:pb-6">
+              <p class="text-sm text-neutral-500 md:text-base">누적 회원 수</p>
+              <p class="mt-2 text-3xl font-semibold text-neutral-900 md:text-4xl">
+                <span class="metric-number" data-target="320000" data-suffix="+">0+</span>
+              </p>
+            </div>
             <!-- 1행: MAU -->
             <div class="flex h-[10rem] flex-col justify-end rounded-2xl bg-[#f8f8f8] p-6 pb-5 shadow-sm md:h-[11rem] md:p-8 md:pb-6">
               <p class="text-sm text-neutral-500 md:text-base">월간 활성 사용자 (MAU)</p>
-              <p class="mt-2 text-3xl font-semibold text-neutral-900 md:text-4xl">45,000+</p>
-            </div>
-            <!-- 1행: WAU -->
-            <div class="flex h-[10rem] flex-col justify-end rounded-2xl bg-[#f8f8f8] p-6 pb-5 shadow-sm md:h-[11rem] md:p-8 md:pb-6">
-              <p class="text-sm text-neutral-500 md:text-base">주간 활성 사용자 (WAU)</p>
-              <p class="mt-2 text-3xl font-semibold text-neutral-900 md:text-4xl">33,000+</p>
+              <p class="mt-2 text-3xl font-semibold text-neutral-900 md:text-4xl">
+                <span class="metric-number" data-target="27000" data-suffix="+">0+</span>
+              </p>
             </div>
           </div>
           <div class="grid grid-cols-1 gap-4 md:grid-cols-[1.25fr_1.75fr] md:gap-5">
             <!-- 2행: 일 평균 사용 시간 (카드4만 넓게) -->
             <div class="flex h-[10rem] flex-col justify-end rounded-2xl bg-[#f8f8f8] p-6 pb-5 shadow-sm md:h-[11rem] md:p-8 md:pb-6">
               <p class="text-sm text-neutral-500 md:text-base">일 평균 사용 시간</p>
-              <p class="mt-2 text-3xl font-semibold text-neutral-900 md:text-4xl">매일 25분+</p>
+              <p class="mt-2 text-3xl font-semibold text-neutral-900 md:text-4xl">
+                <span>매일 </span>
+                <span class="metric-number" data-target="25" data-suffix="분+">0분+</span>
+              </p>
             </div>
-            <!-- 2행: 주 평균 방문 횟수 (이미지 배경 + 텍스트 오버레이) -->
+            <!-- 2행: 유저 방문 횟수 (이미지 배경 + 텍스트 오버레이) -->
             <div class="relative h-[10rem] overflow-hidden rounded-2xl bg-neutral-200 shadow-sm md:h-[11rem]" style="background-image: url('img_info02.png'); background-size: cover; background-position: center;">
               <div class="absolute inset-0 flex flex-col justify-end p-6 pb-5 md:p-8 md:pb-6">
-                <p class="text-sm text-neutral-600 md:text-base">주 평균 방문 횟수</p>
-                <p class="mt-2 text-3xl font-semibold text-[#151515] md:text-4xl">5일 이상 60%+</p>
+                <p class="text-sm text-neutral-600 md:text-base">유저 방문 횟수</p>
+                <p class="mt-2 text-3xl font-semibold text-[#151515] md:text-4xl">
+                  <span>주간 평균 </span>
+                  <span class="metric-number" data-target="42" data-suffix="회+">0회+</span>
+                </p>
               </div>
             </div>
           </div>
@@ -466,61 +493,86 @@
       </div>
     </section>
 
-    <section id="user-story" class="story-section" aria-label="유저 이야기">
-    <div class="story-track">
-      <div class="mx-auto w-full max-w-5xl">
-        <h3 class="story-title mb-16 text-2xl font-bold leading-tight text-[#151515] md:text-3xl lg:text-4xl md:mb-20 lg:mb-24" style="line-height: 1.4;">
-          우리는 누군가의 인생을<br />바꾸는 일을 하고 있습니다
-        </h3>
-        <div class="story-content-area">
-          <div class="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-16">
-            <div class="story-text-column relative flex-1">
-              <div class="story-item" data-story="0">
-                <h4 class="story-subtitle-line mt-6 mb-4 md:mt-8" aria-label="유저 스토리 서브 타이틀"><span>Lee님</span><span class="story-subtitle-sep">|</span><span>20대, 대학병원 레지던트</span></h4>
-                <div class="text-sm text-neutral-600 md:text-base" aria-label="유저 스토리 상세 후기" style="line-height: 1.4;">
+    <section id="user-story" class="story-section bg-white" aria-label="유저 이야기">
+      <div class="story-track">
+        <div class="mx-auto w-full max-w-5xl px-5 py-14 md:px-0 md:py-20">
+          <h3 class="story-title mb-6 text-center text-2xl font-bold leading-tight text-[#151515] md:mb-8 md:text-3xl lg:mb-10 lg:text-4xl" style="line-height: 1.4;">
+            우리는 누군가의 인생을<br />바꾸는 일을 하고 있습니다
+          </h3>
+
+          <div class="flex justify-center">
+            <div class="flex w-full max-w-[840px] flex-col gap-0.5 md:gap-2">
+              <!-- Park님 스토리 -->
+              <article class="flex flex-col gap-5 rounded-3xl bg-white p-6 md:flex-row md:p-7">
+                <div class="flex-shrink-0 overflow-hidden rounded-3xl bg-neutral-100">
+                  <img src="img_user01.png" alt="Park님의 웨딩 사진" class="h-80 w-full object-cover md:h-80 md:w-80" />
+                </div>
+                <div class="flex flex-1 flex-col justify-center text-sm leading-relaxed text-neutral-700 md:text-base">
+                  <p class="mb-3 text-sm font-semibold text-neutral-900 md:text-base">
+                    <span>Park님</span>
+                    <span class="mx-2 text-neutral-300">|</span>
+                    <span>20대, 공기업</span>
+                  </p>
                   <p>헤어지고 몇년간 소개팅만 삼만팔천번은 한것 같은데,,</p>
-                  <p>무려 만5년만에 이상형 만나서 모든 소개팅앱 탈퇴합니다아</p>
-                  <p>그동안 혹시나, 설마, 내가사람보는눈이없나?, 그럼그렇지, 약속직전 당파당하거나 남자가 급 잠수타서 🤬</p>
-                  <p>혼자 콩나물국밥이나 뼈해장국에 소주 한병 비우고 집에 오기도하고</p>
-                  <p>별 짓을 다했는데 몇년을 늘 그랬는데.</p>
-                  <p>포기안하니까 되긴 되네용</p>
-                  <p>다들 좋은 만남 꼭 되세요 히히</p>
+                  <p>무려 3년만에 이상형 만나서 모든 앱 탈퇴합니다아 🫶</p>
+                  <p>그동안 혹시나, 설마, 내가사람보는눈이없나?, 그럼그렇지,</p>
+                  <p>약속직전 당파당하거나 남자가 급 잠수타서 🤬</p>
+                  <p>혼자 콩나물국밥이나 뼈해장국에 소주 한병 비우고 집에</p>
+                  <p>오기도하고 별 짓을 다했는데 몇년을 늘 그랬는데.</p>
+                  <p>포기안하니까 되긴 되네욯</p>
+                  <p>다들 좋은 만남 꼭 되세요 히히 😻</p>
                 </div>
-              </div>
-              <div class="story-item" data-story="1">
-                <h4 class="story-subtitle-line mt-6 mb-4 md:mt-8" aria-label="유저 스토리 서브 타이틀"><span>Kim님</span><span class="story-subtitle-sep">|</span><span>20대, 예비부부</span></h4>
-                <div class="text-sm text-neutral-600 md:text-base" aria-label="유저 스토리 상세 후기" style="line-height: 1.4;">
-                  <p>처음엔 경제력 인증까지 해야 하나 싶었는데</p>
-                  <p>막상 해보니까 오히려 마음이 편해요.</p>
-                  <p>서로 기본적인 검증이 되어 있다는 느낌이라</p>
-                  <p>괜한 눈치싸움이나 떠보는 대화가 줄어든 듯해요.</p>
-                  <p>여기서 만난 분이랑은</p>
-                  <p>벌써 네 번째 데이트 했네요 ✨</p>
-                  <p>분위기 좋은 앱 찾는 분들 괜찮을 것 같아요.</p>
+              </article>
+
+              <!-- Kim님 스토리 -->
+              <article class="flex flex-col gap-5 rounded-3xl bg-white p-6 md:flex-row md:p-7">
+                <div class="flex-shrink-0 overflow-hidden rounded-3xl bg-neutral-100">
+                  <img src="img_user02.png" alt="Kim님의 바다 사진" class="h-80 w-full object-cover md:h-80 md:w-80" />
                 </div>
-              </div>
-              <div class="story-item" data-story="2">
-                <h4 class="story-subtitle-line mt-6 mb-4 md:mt-8" aria-label="유저 스토리 서브 타이틀"><span>Park님</span><span class="story-subtitle-sep">|</span><span>30대, 세무사</span></h4>
-                <div class="text-sm text-neutral-600 md:text-base" aria-label="유저 스토리 상세 후기" style="line-height: 1.4;">
-                  <p>골프 좋아하는데 주변에 같이 칠 사람이 없어서 시작해 봤어요.</p>
-                  <p>골프가 취미인 분이랑 매칭됐는데</p>
-                  <p>템포도 잘 맞고 대화도 편해서 자주 만나다가 결국 곧 결혼 앞두고 있어요 😊</p>
-                  <p>취미가 비슷한게 참 좋은 것 같아요</p>
+                <div class="flex flex-1 flex-col justify-center text-sm leading-relaxed text-neutral-700 md:text-base">
+                  <p class="mb-3 text-sm font-semibold text-neutral-900 md:text-base">
+                    <span>Kim님</span>
+                    <span class="mx-2 text-neutral-300">|</span>
+                    <span>30대, 전문직</span>
+                  </p>
+                  <p>로스쿨 졸업 후 로펌 들어가고 정신없이 지내다 보니</p>
+                  <p>‘연애는 나중에’가 습관이 됐더라고요.</p>
+                  <p>소개팅앱이 처음이라 걱정도 있었지만, 나만의 인연을 만나고</p>
+                  <p>싶어서 용기를 냈습니다. 걱정과는 다르게 진지하게 미래를</p>
+                  <p>생각하고 계신 분들도 많았고 몇번의 만남 끝에</p>
+                  <p>드디어 저도 저만의 인연을 만났습니다.</p>
+                  <p>직업도 안정적이고, 가치관도 너무 잘 맞는 사람을 만나서</p>
+                  <p>1년 연애 끝에 지금은 양가 인사까지 마쳤고,</p>
+                  <p>결혼 준비하면서 “그때 가입하길 잘했다”고 서로 이야기 해요</p>
+                  <p>여러분도 걱정하지 말고 용기내 보세요!</p>
                 </div>
-              </div>
-            </div>
-            <div class="story-images relative flex flex-1 shrink-0 justify-end">
-              <div class="story-img-wrap relative w-full max-w-lg lg:max-w-xl xl:max-w-2xl">
-                <img id="story-img-1" src="img_user01.png" alt="유저 스토리 1" class="story-img w-full rounded-2xl object-cover" />
-                <img id="story-img-2" src="img_user02.png" alt="유저 스토리 2" class="story-img absolute inset-0 w-full rounded-2xl object-cover opacity-0" />
-                <img id="story-img-3" src="img_user03.png" alt="유저 스토리 3" class="story-img absolute inset-0 w-full rounded-2xl object-cover opacity-0" />
-                <span id="story-pagination" class="absolute bottom-3 right-3 rounded-full bg-[#151515]/60 px-3 py-1.5 text-sm font-medium text-white" aria-label="이미지 1 of 3">1/3</span>
-              </div>
+              </article>
+
+              <!-- Lee님 스토리 -->
+              <article class="flex flex-col gap-5 rounded-3xl bg-white p-6 md:flex-row md:p-7">
+                <div class="flex-shrink-0 overflow-hidden rounded-3xl bg-neutral-100">
+                  <img src="img_user03.png" alt="Lee님의 골프 사진" class="h-80 w-full object-cover md:h-80 md:w-80" />
+                </div>
+                <div class="flex flex-1 flex-col justify-center text-sm leading-relaxed text-neutral-700 md:text-base">
+                  <p class="mb-3 text-sm font-semibold text-neutral-900 md:text-base">
+                    <span>Lee님</span>
+                    <span class="mx-2 text-neutral-300">|</span>
+                    <span>40대, 연매출 50억 이상 CEO</span>
+                  </p>
+                  <p>이른 나이에 사업을 시작해서 이제 겨우 안정되다보니,</p>
+                  <p>“쉬는 법이 같은 사람”을 만나고 싶었습니다.</p>
+                  <p>여기서 만난 분은 대화 템포도 좋았고, 무엇보다 취미가 딱</p>
+                  <p>맞았어요 라운딩, 와인, 주말 소도시 드라이브까지.</p>
+                  <p>일 얘기만 하던 일상에, 처음으로 ‘진짜 주말’이 생겼습니다.</p>
+                  <p>서로 안정된 상태에서 만나니 일정 맞추는 것도 편하고</p>
+                  <p>같이 뭔가를 배우고 즐길 수 있어서 관계가 자연스럽게</p>
+                  <p>깊어지는 것 같습니다.</p>
+                </div>
+              </article>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </section>
 
     <!-- 우리의 이야기 / 연혁 섹션 -->
@@ -535,20 +587,20 @@
             <div class="space-y-10">
               <div>
                 <p class="mb-2 text-lg text-neutral-500 md:text-xl">연간 매출액</p>
-                <p class="text-4xl font-bold text-neutral-800 md:text-5xl lg:text-6xl">142억 원</p>
+                <p class="text-3xl font-bold text-neutral-800 md:text-4xl lg:text-5xl">124억 원</p>
               </div>
               <div>
                 <p class="mb-2 text-lg text-neutral-500 md:text-xl">서비스 가입자 수</p>
-                <p class="text-4xl font-bold text-neutral-800 md:text-5xl lg:text-6xl">50만</p>
+                <p class="text-3xl font-bold text-neutral-800 md:text-4xl lg:text-5xl">32만</p>
               </div>
               <div>
-                <p class="mb-2 text-lg text-neutral-500 md:text-xl">연간 매칭 수</p>
-                <p class="text-4xl font-bold text-neutral-800 md:text-5xl lg:text-6xl">6,500만 건</p>
+                <p class="mb-2 text-lg text-neutral-500 md:text-xl">하루 매칭 수</p>
+                <p class="text-3xl font-bold text-neutral-800 md:text-4xl lg:text-5xl">1700쌍 커플 탄생</p>
               </div>
             </div>
           </div>
           <!-- 오른쪽: 연혁 타임라인 -->
-          <div class="flex flex-1 flex-col pl-8 pt-8 lg:pl-12 lg:pt-10">
+          <div class="flex flex-1 flex-col pl-4 pt-8 lg:pl-8 lg:pt-10">
             <div class="relative">
               <div class="absolute left-0 top-2 bottom-12 w-0.5 -translate-x-1/2 bg-neutral-300" aria-hidden="true"></div>
               <!-- 2026 -->
@@ -556,8 +608,8 @@
                 <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
                 <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2026</h3>
                 <ul class="space-y-1.5 text-sm text-neutral-600">
-                  <li class="flex gap-2"><span class="w-6 shrink-0">02</span><span>일본 데이팅 시장 진출 '힐즈하이' 론칭</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">03</span><span>ISMS-P 인증 획득</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">03</span><span>ISMS-P 인증 획득</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">02</span><span>일본 데이팅 시장 진출 '힐즈하이' 론칭</span></li>
                 </ul>
               </div>
               <!-- 2025 -->
@@ -565,11 +617,11 @@
                 <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
                 <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2025</h3>
                 <ul class="space-y-1.5 text-sm text-neutral-600">
-                  <li class="flex gap-2"><span class="w-6 shrink-0">01</span><span>노블레스디지털솔루션 업무 협약(MOU)</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>중소벤처기업진흥공단 글로벌비즈니스센터 입주</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">05</span><span>한화생명 골드스푼 나잇(GOLDSPOON NIGHT) 개최</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">05</span><span>일본 법인 설립</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">10</span><span>대한적십자사 '포장증' 명예장 수상</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">10</span><span>대한적십자사 '포장증' 명예장 수상</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">05</span><span>일본 법인 설립</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">05</span><span>한화생명 골드스푼 나잇(GOLDSPOON NIGHT) 개최</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">04</span><span>중소벤처기업진흥공단 글로벌비즈니스센터 입주</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">01</span><span>노블레스디지털솔루션 업무 협약(MOU)</span></li>
                 </ul>
               </div>
               <!-- 2024 -->
@@ -577,12 +629,12 @@
                 <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
                 <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2024</h3>
                 <ul class="space-y-1.5 text-sm text-neutral-600">
-                  <li class="flex gap-2"><span class="w-6 shrink-0">03</span><span>'2024 대한민국 우수 브랜드 대상' 수상</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>벤처기업확인기관 '혁신성장유형' 벤처기업 인증</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">06</span><span>홈텍스 연계 간편인증 서비스 '블루라벨' 도입</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">07</span><span>국내 결혼중개업 등록</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">11</span><span>소벤처기업진흥공단 글로벌비즈니스센터 입주기업 선정</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">12</span><span>매출 100억 돌파</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">12</span><span>매출 100억 돌파</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">11</span><span>소벤처기업진흥공단 글로벌비즈니스센터 입주기업 선정</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">07</span><span>국내 결혼중개업 등록</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">06</span><span>홈텍스 연계 간편인증 서비스 '블루라벨' 도입</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">04</span><span>벤처기업확인기관 '혁신성장유형' 벤처기업 인증</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">03</span><span>'2024 대한민국 우수 브랜드 대상' 수상</span></li>
                 </ul>
               </div>
               <!-- 2023 -->
@@ -590,9 +642,9 @@
                 <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
                 <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2023</h3>
                 <ul class="space-y-1.5 text-sm text-neutral-600">
-                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>대한적십자사 바른기업 참여</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">10</span><span>데이팅 서비스 업계 최초 ISMS 인증 획득</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">10</span><span>신규 3545 프리미엄 데이팅앱 '더멤버스' 론칭</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">10</span><span>신규 3545 프리미엄 데이팅앱 '더멤버스' 론칭</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">10</span><span>데이팅 서비스 업계 최초 ISMS 인증 획득</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">04</span><span>대한적십자사 바른기업 참여</span></li>
                 </ul>
               </div>
               <!-- 2022 -->
@@ -600,9 +652,9 @@
                 <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
                 <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2022</h3>
                 <ul class="space-y-1.5 text-sm text-neutral-600">
-                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>산업통상자원부/한국일보 주관 2021 대한민국 서비스 만족 대상 수상</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">06</span><span>대한공중보건 한의사협회 업무제휴 체결</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">12</span><span>중앙일보 주관 2022 올해의 우수 브랜드상 1위 수상</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">12</span><span>중앙일보 주관 2022 올해의 우수 브랜드상 1위 수상</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">06</span><span>대한공중보건 한의사협회 업무제휴 체결</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">04</span><span>산업통상자원부/한국일보 주관 2021 대한민국 서비스 만족 대상 수상</span></li>
                 </ul>
               </div>
               <!-- 2021 -->
@@ -610,11 +662,11 @@
                 <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
                 <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2021</h3>
                 <ul class="space-y-1.5 text-sm text-neutral-600">
-                  <li class="flex gap-2"><span class="w-6 shrink-0">02</span><span>구글스토어 라이프스타일 분야 최고매출 1위 달성</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">03</span><span>트리플콤마 기업부설연구소 설립</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>대한공중보건 한의사협회 최초 업무제휴 체결</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>산업통상자원부/한국일보 주관 2020 대한민국 서비스 만족 대상 수상</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>벤처기업협회 신성장분야 벤처기업 재인증</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">04</span><span>벤처기업협회 신성장분야 벤처기업 재인증</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">04</span><span>산업통상자원부/한국일보 주관 2020 대한민국 서비스 만족 대상 수상</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">04</span><span>대한공중보건 한의사협회 최초 업무제휴 체결</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">03</span><span>트리플콤마 기업부설연구소 설립</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">02</span><span>구글스토어 라이프스타일 분야 최고매출 1위 달성</span></li>
                 </ul>
               </div>
               <!-- 2020 -->
@@ -622,9 +674,9 @@
                 <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
                 <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2020</h3>
                 <ul class="space-y-1.5 text-sm text-neutral-600">
-                  <li class="flex gap-2"><span class="w-6 shrink-0">03</span><span>대한공중보건 치과의사협회 업무제휴 체결</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">06</span><span>의사 전용 메신저 메디스태프 업무제휴 체결</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">12</span><span>연매출액 전년 대비 260% 성장</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">12</span><span>연매출액 전년 대비 260% 성장</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">06</span><span>의사 전용 메신저 메디스태프 업무제휴 체결</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">03</span><span>대한공중보건 치과의사협회 업무제휴 체결</span></li>
                 </ul>
               </div>
               <!-- 2019 -->
@@ -632,9 +684,9 @@
                 <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
                 <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2019</h3>
                 <ul class="space-y-1.5 text-sm text-neutral-600">
-                  <li class="flex gap-2"><span class="w-6 shrink-0">02</span><span>의사 전용 메신저 메디스태프 최초 업무제휴 체결</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">03</span><span>대한공중보건 의사협회 업무제휴 체결</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>기술보증기금 선정 벤처기업 최초 인증</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">04</span><span>기술보증기금 선정 벤처기업 최초 인증</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">03</span><span>대한공중보건 의사협회 업무제휴 체결</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">02</span><span>의사 전용 메신저 메디스태프 최초 업무제휴 체결</span></li>
                 </ul>
               </div>
               <!-- 2018 -->
@@ -642,7 +694,7 @@
                 <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
                 <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2018</h3>
                 <ul class="space-y-1.5 text-sm text-neutral-600">
-                  <li class="flex gap-2"><span class="w-6 shrink-0">04</span><span>골드스푼 서비스 최초 론칭</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">04</span><span>골드스푼 서비스 최초 론칭</span></li>
                 </ul>
               </div>
             </div>
@@ -759,43 +811,66 @@
       });
     })();
 
-    // 유저 스토리 섹션: 스크롤 한 번에 텍스트·이미지 즉시 전환 (3개)
+    // 유저 스토리 섹션: 당근 '당근을 만나고 달라진 일상' 스타일 스크롤 핀 + 텍스트/이미지 전환
     (function initStorySection() {
       gsap.registerPlugin(ScrollTrigger);
       const section = document.querySelector('.story-section');
       const track = document.querySelector('.story-track');
       const items = section ? section.querySelectorAll('.story-item') : [];
-      var img1 = document.getElementById('story-img-1');
-      var img2 = document.getElementById('story-img-2');
-      var img3 = document.getElementById('story-img-3');
+      var strip = document.getElementById('story-img-strip');
       var paginationEl = document.getElementById('story-pagination');
       var total = items.length;
-      if (!section || !track || total < 1) return;
+      if (!section || !track || total < 1 || !strip) return;
 
-      for (var i = 1; i < total; i++) gsap.set(items[i], { opacity: 0 });
+      for (var i = 1; i < total; i++) {
+        gsap.set(items[i], { opacity: 0, y: 0 });
+        items[i].style.visibility = 'hidden';
+      }
+      gsap.set(items[0], { opacity: 1, y: 0 });
+      items[0].style.visibility = 'visible';
+      gsap.set(strip, { yPercent: 0 });
+      var prevActiveIndex = -1;
+      var lastStripIndex = -1;
 
       function showStory(activeIndex) {
-        items.forEach(function(el, i) {
-          gsap.set(el, { opacity: i === activeIndex ? 1 : 0, y: 0 });
-          el.classList.toggle('is-active', i === activeIndex);
-        });
-        if (img1) gsap.set(img1, { opacity: activeIndex === 0 ? 1 : 0 });
-        if (img2) gsap.set(img2, { opacity: activeIndex === 1 ? 1 : 0 });
-        if (img3) gsap.set(img3, { opacity: activeIndex === 2 ? 1 : 0 });
         if (paginationEl) paginationEl.textContent = (activeIndex + 1) + '/' + total;
+        items.forEach(function(el, i) { el.classList.toggle('is-active', i === activeIndex); });
+
+        if (activeIndex === prevActiveIndex) return;
+        gsap.killTweensOf(items);
+        if (prevActiveIndex === -1) {
+          items[activeIndex].style.visibility = 'visible';
+          gsap.fromTo(items[activeIndex], { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' });
+          prevActiveIndex = activeIndex;
+          return;
+        }
+        var outItem = items[prevActiveIndex];
+        var inItem = items[activeIndex];
+        inItem.style.visibility = 'visible';
+        gsap.to(outItem, { opacity: 0, y: -16, duration: 0.3, ease: 'power2.out', onComplete: function() { outItem.style.visibility = 'hidden'; } });
+        gsap.set(inItem, { y: 20, opacity: 0 });
+        gsap.to(inItem, { y: 0, opacity: 1, duration: 0.4, delay: 0.05, ease: 'power2.out' });
+        prevActiveIndex = activeIndex;
       }
 
       ScrollTrigger.create({
         trigger: section,
         start: 'top top',
-        end: '+=200%',
+        end: '+=300%',
         pin: true,
         scrub: 1,
-        onEnter: function() { showStory(0); },
+        onEnter: function() { prevActiveIndex = -1; showStory(0); },
         onUpdate: function(self) {
           var p = self.progress;
-          var activeIndex = p < 1/3 ? 0 : (p < 2/3 ? 1 : 2);
+          var activeIndex = p < 0.08 ? 0 : (p < 0.45 ? 1 : 2);
           showStory(activeIndex);
+          if (activeIndex !== lastStripIndex) {
+            var targetY = -activeIndex * 33.333;
+            var fromY = targetY + 8;
+            gsap.killTweensOf(strip);
+            gsap.fromTo(strip, { yPercent: fromY }, { yPercent: targetY, duration: 0.4, ease: 'power2.out' });
+            lastStripIndex = activeIndex;
+          }
         }
       });
     })();
@@ -834,6 +909,49 @@
           once: true,
           toggleActions: 'play none none none',
         },
+      });
+    })();
+
+    // 서비스 지표 숫자 카운트업 애니메이션
+    (function initInfoMetricsCounter() {
+      var metricEls = document.querySelectorAll('.metric-number');
+      if (!metricEls.length || !('IntersectionObserver' in window)) return;
+
+      var formatter = new Intl.NumberFormat('ko-KR');
+
+      function animateCount(el) {
+        var target = parseInt(el.getAttribute('data-target'), 10);
+        if (isNaN(target) || target <= 0) return;
+        var duration = parseInt(el.getAttribute('data-duration'), 10) || 1000;
+        var startTime = null;
+        var suffix = el.getAttribute('data-suffix') || '';
+
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          var progress = Math.min((timestamp - startTime) / duration, 1);
+          var current = Math.floor(target * progress);
+          el.textContent = formatter.format(current) + suffix;
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          }
+        }
+
+        requestAnimationFrame(step);
+      }
+
+      var observer = new IntersectionObserver(function(entries, obs) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          animateCount(el);
+          obs.unobserve(el);
+        });
+      }, { threshold: 0.6 });
+
+      metricEls.forEach(function(el) {
+        var suffix = el.getAttribute('data-suffix') || '';
+        el.textContent = '0' + suffix;
+        observer.observe(el);
       });
     })();
   </script>

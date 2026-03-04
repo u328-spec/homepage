@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>TRIPLE COMMA</title>
+  <title>더멤버스 | TRIPLE COMMA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="favicon.png" type="image/png" />
   <!-- Pretendard Font -->
@@ -65,38 +65,32 @@
       background-color: #151515;
       position: relative;
       overflow: hidden;
-      padding: 6rem 2rem 6rem;
-      min-height: 100vh;
+      padding: 7rem 2rem 0; /* 상단 여백 소폭 증가, 하단 여백 제거 */
+      min-height: auto;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
     }
     @media (min-width: 768px) {
       .goldspoon-cards-section {
-        padding: 7rem 4rem 8rem;
+        padding: 8rem 4rem 0;
       }
     }
     @media (min-width: 1024px) {
       .goldspoon-cards-section {
-        padding: 9rem 6rem 10rem;
+        padding: 9rem 6rem 0;
       }
     }
     .goldspoon-cards-section::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 45%;
-      background: linear-gradient(to top, #645427 0%, rgba(100, 84, 39, 0) 100%);
-      pointer-events: none;
+      /* 더멤버스 카드 섹션은 하단 그라데이션 제거 */
+      content: none;
     }
     .goldspoon-cards-title {
       color: white;
       font-size: 1.5rem;
       font-weight: 700;
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin: 2.5rem 0 2.5rem; /* 상단 여백을 조금 더 증가 */
       position: relative;
       z-index: 1;
       line-height: 1.35;
@@ -104,27 +98,29 @@
     @media (min-width: 768px) {
       .goldspoon-cards-title { font-size: 1.75rem; margin-bottom: 3rem; }
     }
-    .goldspoon-cards-wrap {
+    .goldspoon-cards-images {
       position: relative;
       z-index: 1;
-      max-width: 230px;
-      margin: 1.75rem auto 0;
-      aspect-ratio: 3 / 4;
-      min-height: 340px;
+      max-width: 820px;
+      margin: 3.5rem auto 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .goldspoon-cards-images img {
       width: 100%;
+      max-width: 360px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 1.25rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
     }
     @media (min-width: 768px) {
-      .goldspoon-cards-wrap {
-        max-width: 270px;
-        min-height: 400px;
-        margin-top: 2rem;
-      }
-    }
-    @media (min-width: 1024px) {
-      .goldspoon-cards-wrap {
-        max-width: 310px;
-        min-height: 460px;
-        margin-top: 2.25rem;
+      .goldspoon-cards-images {
+        flex-direction: row;
+        justify-content: center;
+        gap: 2rem;
       }
     }
     .goldspoon-card {
@@ -462,7 +458,7 @@
     /* 골드스푼 다운로드 CTA 섹션 */
     .goldspoon-download-section {
       background-color: #312F2D;
-      padding: 0.5rem 1.5rem 0.5rem;
+      padding: 0.5rem 1.5rem 0;
       color: #ffffff;
       overflow: hidden;
     }
@@ -496,7 +492,7 @@
       font-size: 1.8rem;
       font-weight: 700;
       line-height: 1.25;
-      color: #EBBF59;
+      color: #C12838;
       margin: 0 0 2rem;
     }
     .goldspoon-download-button {
@@ -521,10 +517,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: 1.5rem;
+      margin-top: 3rem;
     }
     .goldspoon-download-mockup {
-      max-width: 720px;
+      max-width: 920px;
       width: 100%;
       height: auto;
       object-fit: contain;
@@ -599,7 +595,7 @@
     }
     @media (min-width: 768px) {
       .goldspoon-download-section {
-        padding: 0.8rem 3rem 0.8rem;
+        padding: 0.8rem 3rem 0;
       }
       .goldspoon-download-inner {
         flex-direction: row;
@@ -616,7 +612,7 @@
     }
     @media (min-width: 1024px) {
       .goldspoon-download-section {
-        padding: 1.1rem 4rem 1.1rem;
+        padding: 1.1rem 4rem 0;
       }
       .goldspoon-download-inner {
         gap: 5rem;
@@ -636,7 +632,7 @@
   <section class="relative min-h-screen overflow-hidden">
     <!-- 배경 이미지 -->
     <div class="absolute inset-0 -z-10">
-      <img src="bg_goldspoon.png" alt="" class="h-full w-full object-cover object-center" />
+      <img src="bg_themembers.png" alt="" class="h-full w-full object-cover object-center" />
     </div>
     
     <!-- 고정 헤더 - 푸터와 왼쪽 정렬 -->
@@ -724,98 +720,52 @@
       <!-- 왼쪽: 헤드라인 + 버튼 -->
       <div class="z-10 mb-12 flex flex-1 flex-col md:mb-0 md:max-w-xl">
         <h1 class="mb-6 text-[1.65rem] font-bold leading-tight text-white md:text-[2.6rem] lg:text-[3.35rem]" style="line-height: 1.4;">
-          국내 1위 하이엔드<br />데이팅앱 골드스푼
+          검증기반 3040<br />데이팅앱 더멤버스
         </h1>
-        <a href="https://goldspoon.io" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit rounded-full bg-white px-8 py-3.5 text-base font-medium text-[#151515] transition hover:bg-neutral-100 md:text-lg">
+        <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit rounded-full bg-white px-8 py-3.5 text-base font-medium text-[#151515] transition hover:bg-neutral-100 md:text-lg">
           홈페이지 바로가기
         </a>
       </div>
 
       <!-- 오른쪽: 모바일 목업 -->
       <div class="flex flex-1 items-center justify-center md:absolute md:right-0 md:top-0 md:flex md:h-full md:w-[42%] md:items-end md:justify-end md:pt-6 md:pr-8 md:pb-0 lg:pr-12">
-        <img src="mockup_goldspoon.png" alt="골드스푼 앱 목업" class="h-[75vh] max-h-[680px] w-auto object-contain md:h-[88vh] md:max-h-[900px]" style="transform: scale(0.8) translate(-350px, 110px);" />
+        <img src="mockup_themembers.png" alt="더멤버스 앱 목업" class="h-[75vh] max-h-[680px] w-auto object-contain md:h-[88vh] md:max-h-[900px]" style="transform: scale(0.8) translate(-350px, 110px);" />
       </div>
       </div>
     </div>
   </section>
 
-  <!-- 까다로워도 돼요 - 골드스푼 소개 섹션 -->
-  <section class="goldspoon-intro-section" aria-label="골드스푼 소개">
-    <img src="logo_goldspoon.png" alt="GOLDSPOON" class="intro-logo" />
-    <p class="intro-headline">까다로워도 돼요.<br />기준과 취향이 맞는 사람을<br />골드스푼에서 만나세요.</p>
+  <!-- 까다로워도 돼요 - 더멤버스 소개 섹션 -->
+  <section class="goldspoon-intro-section" aria-label="더멤버스 소개">
+    <img src="logo_themembers.png" alt="더멤버스" class="intro-logo" />
+    <p class="intro-headline">결혼은 더욱 신중하니까.<br />결혼 적령기의 기준 맞는 사람을<br />더멤버스에서 만나세요.</p>
   </section>
 
-  <!-- 서비스 - 골드스푼 인증 카드 (스택) -->
-  <section class="goldspoon-cards-section" id="goldspoon-cards" aria-label="골드스푼 인증 카드">
-    <h2 class="goldspoon-cards-title">엄격한 심사로<br />선별된 회원 퀄리티</h2>
-    <div class="goldspoon-cards-wrap" id="goldspoon-cards-wrap">
-      <!-- 가장 뒤: 부동산, 주식 인증 카드 -->
-      <article class="goldspoon-card card-stack-back2" role="group" aria-label="부동산, 주식 인증한 사업가">
-        <p class="card-title">부동산, 주식 인증한<br />사업가</p>
-        <div class="card-img-wrap">
-          <img src="assets/img_profile04.png" alt="" />
-        </div>
-        <div class="card-badge">
-          <img src="assets/img_badge04.png" alt="" />
-          <p class="card-label card-label-gold">100억+ 초고액자산</p>
-        </div>
-        <p class="card-desc">소유권을 증명할 수 있는 부동산 등기서류<br />등을 제출하여 자산을 인증했습니다</p>
-      </article>
-      <!-- 맨 뒤: 엘리트 집안 인증 카드 -->
-      <article class="goldspoon-card card-stack-back" role="group" aria-label="엘리트 집안 인증한 아나운서">
-        <p class="card-title">엘리트 집안 인증한<br />아나운서</p>
-        <div class="card-img-wrap">
-          <img src="assets/img_profile03.png" alt="" />
-        </div>
-        <div class="card-badge">
-          <img src="assets/img_badge03.png" alt="" />
-          <p class="card-label card-label-gold">엘리트 집안</p>
-        </div>
-        <p class="card-desc">법조계/의료계 부모님 직업 서류를 제출하여<br />엘리트 집안임을 인증했습니다</p>
-      </article>
-      <!-- 가운데: 의사 면허증 인증 카드 -->
-      <article class="goldspoon-card card-stack-mid" role="group" aria-label="의사 면허증 인증한 전문직">
-        <p class="card-title">의사 면허증 인증한<br />전문직</p>
-        <div class="card-img-wrap">
-          <img src="assets/img_profile02.png" alt="" />
-        </div>
-        <div class="card-badge">
-          <img src="assets/img_badge02.png" alt="" />
-          <p class="card-label card-label-gold">전문직</p>
-        </div>
-        <p class="card-desc">본인 성명이 표기된 의사 면허증 자료를 통해<br />전문직종임을 인증했습니다</p>
-      </article>
-      <!-- 맨 앞: 미스코리아 인증 카드, 0° -->
-      <article class="goldspoon-card card-stack-front" role="group" aria-label="미스코리아 인증 현직 모델">
-        <p class="card-title">미스코리아 인증한<br />현직 모델</p>
-        <div class="card-img-wrap">
-          <img src="assets/img_profile01.png" alt="" />
-        </div>
-        <div class="card-badge">
-          <img src="assets/img_badge01.png" alt="" />
-          <p class="card-label card-label-gold">인플루언서</p>
-        </div>
-        <p class="card-desc">본인의 이름과 사진이 기재된 자료 제출하여<br />미스코리아 출신임을 인증했습니다</p>
-      </article>
+  <!-- 서비스 - 더멤버스 인증 카드 (스택) -->
+  <section class="goldspoon-cards-section" id="goldspoon-cards" aria-label="더멤버스 인증 카드">
+    <h2 class="goldspoon-cards-title">홈텍스로 소득, 혼인 서류<br />조회하여 허위 인증 불가</h2>
+    <div class="goldspoon-cards-images">
+      <img src="mockup_document.png" alt="소득 및 서류 심사 화면" />
+      <img src="mockup_profile_m.png" alt="프로필 및 인증 뱃지 화면" />
     </div>
   </section>
 
-  <!-- 국내최대 2030 하이엔드 커뮤니티 섹션 -->
-  <section class="goldspoon-lounge-section" aria-label="국내최대 2030 하이엔드 커뮤니티">
+  <!-- 3040 하이엔드 커뮤니티 섹션 -->
+  <section class="goldspoon-lounge-section" aria-label="3040 하이엔드 커뮤니티">
     <div class="goldspoon-lounge-inner">
       <div class="goldspoon-lounge-copy">
         <h2 class="goldspoon-lounge-title">
-          국내최대 2030<br />
-          하이엔드 커뮤니티
+          만남 매니저가<br />
+          약속을 보장해 드립니다
         </h2>
         <p class="goldspoon-lounge-desc">
-상위권 남녀만 모인 프리미엄 라운지에서
-실시간으로 대화를 나눠보세요. 다양한 주제의 소통부터
-마음에 드는 이성과의 인연까지 자연스럽게 이어집니다.
+오직 YES or NO만 대답하세요
+소개부터 일정, 장소까지
+한번에 관리해 드립니다
         </p>
       </div>
       <div class="goldspoon-lounge-visual" aria-hidden="true">
-        <img src="mockup_lounge.png" alt="" class="goldspoon-lounge-mockup" />
+        <img src="mockup_manager.png" alt="" class="goldspoon-lounge-mockup" />
       </div>
     </div>
   </section>
@@ -825,45 +775,45 @@
     <div class="goldspoon-near-inner">
       <div class="goldspoon-near-copy">
         <h2 class="goldspoon-near-title">
-          내주변<br />
-          상위 1% 탐색
+          이상형이 까다로워도<br />
+          괜찮습니다
         </h2>
         <p class="goldspoon-near-desc">
-내 주변의 상위 1% 이성을 빠르게
-탐색해보세요. 조건과 매력을 갖춘 상대를
-한눈에 확인할 수 있어요.
+원하는 이상형 조건을 조합하여
+내가 원하는 이상형을
+직접 골라보세요
         </p>
       </div>
       <div class="goldspoon-near-visual" aria-hidden="true">
-        <img src="mockup_near.png" alt="내 주변 상위 1% 탐색 목업" class="goldspoon-near-mockup" />
+        <img src="mockup_custom.png" alt="내 주변 상위 1% 탐색 목업" class="goldspoon-near-mockup" />
       </div>
     </div>
   </section>
 
-  <!-- 골드스푼 다운로드 CTA 섹션 -->
-  <section class="goldspoon-download-section" aria-label="골드스푼 다운로드 안내">
+  <!-- 더멤버스 다운로드 CTA 섹션 -->
+  <section class="goldspoon-download-section" aria-label="더멤버스 다운로드 안내">
     <div class="goldspoon-download-inner">
       <div class="goldspoon-download-copy">
-        <img src="logo_goldspoon.png" alt="골드스푼 로고" class="goldspoon-download-logo" />
-        <p class="goldspoon-download-title-main">선별된 남녀들의 만남</p>
-        <p class="goldspoon-download-title-sub">골드스푼</p>
+        <img src="logo_themembers.png" alt="더멤버스 로고" class="goldspoon-download-logo" />
+        <p class="goldspoon-download-title-main">결혼적령기를 위한</p>
+        <p class="goldspoon-download-title-sub">더멤버스</p>
         <a href="#" class="goldspoon-download-button" id="goldspoon-download-btn">
           앱 다운로드하기
         </a>
       </div>
       <div class="goldspoon-download-visual" aria-hidden="true">
-        <img src="img_gs_download.png" alt="골드스푼 앱 다운로드 목업" class="goldspoon-download-mockup" />
+        <img src="img_themembers_download.png" alt="더멤버스 앱 다운로드 목업" class="goldspoon-download-mockup" />
       </div>
     </div>
   </section>
 
-  <!-- 골드스푼 앱 다운로드 QR 모달 -->
+  <!-- 더멤버스 앱 다운로드 QR 모달 -->
   <div id="download-modal-backdrop" class="download-modal-backdrop hidden" aria-hidden="true">
     <div class="download-modal" role="dialog" aria-modal="true" aria-labelledby="download-modal-title">
       <button type="button" class="download-modal-close" id="download-modal-close" aria-label="닫기">×</button>
-      <h3 id="download-modal-title" class="download-modal-title">골드스푼 앱 다운로드</h3>
+      <h3 id="download-modal-title" class="download-modal-title">더멤버스 앱 다운로드</h3>
       <p class="download-modal-subtitle">QR 코드를 스캔하여 다운로드 해주세요</p>
-      <img src="themembers_onelink_qr.svg" alt="골드스푼 앱 다운로드 QR 코드" class="download-modal-qr" />
+      <img src="themembers_onelink_qr.svg" alt="더멤버스 앱 다운로드 QR 코드" class="download-modal-qr" />
     </div>
   </div>
 
@@ -996,29 +946,8 @@
         previousBack2 = cards[3];
       }
  
-      // 처음 한 번은 정적인 스택 위치만 세팅
+      // 처음 한 번은 정적인 스택 위치만 세팅 (애니메이션 없이 고정)
       applyStack(false);
-
-      // 한 번의 스택 회전 + 드롭/라이즈 모션 실행
-      function step() {
-        if (cards.length !== 4) return;
-        // front -> back2, mid -> front, back -> mid, back2 -> back 순서로 회전
-        cards.push(cards.shift());
-        applyStack(true);
-      }
-
-      function startLoop() {
-        if (intervalId !== null) return;
-
-        // 페이지 진입 직후 한 번 바로 모션 시작
-        step();
-
-        // 이후에는 1.7초 간격으로 반복 (애니메이션 더 빠르게)
-        intervalId = setInterval(step, 1700);
-      }
- 
-      // 골드스푼 페이지 로드 시 바로 애니메이션 시작
-      startLoop();
     })();
 
     // 골드스푼 앱 다운로드 모달

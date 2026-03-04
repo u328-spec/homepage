@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>TRIPLE COMMA</title>
+  <title>힐즈하이 | TRIPLE COMMA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="favicon.png" type="image/png" />
   <!-- Pretendard Font -->
@@ -461,10 +461,27 @@
 
     /* 골드스푼 다운로드 CTA 섹션 */
     .goldspoon-download-section {
-      background-color: #312F2D;
-      padding: 0.5rem 1.5rem 0.5rem;
+      background-color: #012130;
+      padding: 0.25rem 1.5rem 0;
       color: #ffffff;
       overflow: hidden;
+      position: relative;
+    }
+    .goldspoon-download-section::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 50%;
+      background: linear-gradient(
+        to top,
+        #417E9B 0%,
+        #01628F 50%,
+        rgba(67, 85, 115, 0) 100%
+      );
+      pointer-events: none;
+      z-index: 0;
     }
     .goldspoon-download-inner {
       max-width: 1040px;
@@ -474,6 +491,8 @@
       align-items: flex-start;
       justify-content: center;
       gap: 3rem;
+      position: relative;
+      z-index: 1;
     }
     .goldspoon-download-copy {
       flex: 0 0 360px;
@@ -524,7 +543,7 @@
       margin-top: 1.5rem;
     }
     .goldspoon-download-mockup {
-      max-width: 720px;
+      max-width: 420px;
       width: 100%;
       height: auto;
       object-fit: contain;
@@ -599,7 +618,7 @@
     }
     @media (min-width: 768px) {
       .goldspoon-download-section {
-        padding: 0.8rem 3rem 0.8rem;
+      padding: 0.5rem 3rem 0;
       }
       .goldspoon-download-inner {
         flex-direction: row;
@@ -607,7 +626,7 @@
         gap: 4rem;
       }
       .goldspoon-download-visual {
-        margin-top: 2.5rem;
+      margin-top: 2.5rem;
       }
       .goldspoon-download-title-main,
       .goldspoon-download-title-sub {
@@ -616,13 +635,13 @@
     }
     @media (min-width: 1024px) {
       .goldspoon-download-section {
-        padding: 1.1rem 4rem 1.1rem;
+      padding: 0.75rem 4rem 0;
       }
       .goldspoon-download-inner {
         gap: 5rem;
       }
       .goldspoon-download-visual {
-        margin-top: 3rem;
+      margin-top: 3rem;
       }
       .goldspoon-download-title-main,
       .goldspoon-download-title-sub {
@@ -636,7 +655,7 @@
   <section class="relative min-h-screen overflow-hidden">
     <!-- 배경 이미지 -->
     <div class="absolute inset-0 -z-10">
-      <img src="bg_goldspoon.png" alt="" class="h-full w-full object-cover object-center" />
+      <img src="bg_hillshigh.png" alt="" class="h-full w-full object-cover object-center" />
     </div>
     
     <!-- 고정 헤더 - 푸터와 왼쪽 정렬 -->
@@ -723,99 +742,66 @@
       <div class="mx-auto flex w-full max-w-5xl flex-col pt-2 md:flex-row md:items-center md:justify-between md:pt-4">
       <!-- 왼쪽: 헤드라인 + 버튼 -->
       <div class="z-10 mb-12 flex flex-1 flex-col md:mb-0 md:max-w-xl">
-        <h1 class="mb-6 text-[1.65rem] font-bold leading-tight text-white md:text-[2.6rem] lg:text-[3.35rem]" style="line-height: 1.4;">
-          국내 1위 하이엔드<br />데이팅앱 골드스푼
-        </h1>
-        <a href="https://goldspoon.io" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit rounded-full bg-white px-8 py-3.5 text-base font-medium text-[#151515] transition hover:bg-neutral-100 md:text-lg">
+      <h1 class="mb-6 text-[1.65rem] font-bold leading-tight text-white md:text-[2.6rem] lg:text-[3.35rem]" style="line-height: 1.4;">
+      일본최초 검증기반<br />데이팅앱 힐즈하이
+      </h1>
+        <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit rounded-full bg-white px-8 py-3.5 text-base font-medium text-[#151515] transition hover:bg-neutral-100 md:text-lg">
           홈페이지 바로가기
         </a>
       </div>
 
       <!-- 오른쪽: 모바일 목업 -->
       <div class="flex flex-1 items-center justify-center md:absolute md:right-0 md:top-0 md:flex md:h-full md:w-[42%] md:items-end md:justify-end md:pt-6 md:pr-8 md:pb-0 lg:pr-12">
-        <img src="mockup_goldspoon.png" alt="골드스푼 앱 목업" class="h-[75vh] max-h-[680px] w-auto object-contain md:h-[88vh] md:max-h-[900px]" style="transform: scale(0.8) translate(-350px, 110px);" />
+        <img src="mockup_hillshigh.png" alt="힐즈하이 앱 목업" class="h-[75vh] max-h-[680px] w-auto object-contain md:h-[88vh] md:max-h-[900px]" style="transform: scale(0.8) translate(-350px, 110px);" />
       </div>
       </div>
     </div>
   </section>
 
-  <!-- 까다로워도 돼요 - 골드스푼 소개 섹션 -->
-  <section class="goldspoon-intro-section" aria-label="골드스푼 소개">
-    <img src="logo_goldspoon.png" alt="GOLDSPOON" class="intro-logo" />
-    <p class="intro-headline">까다로워도 돼요.<br />기준과 취향이 맞는 사람을<br />골드스푼에서 만나세요.</p>
+  <!-- 까다로워도 돼요 - 힐즈하이 소개 섹션 -->
+  <section class="goldspoon-intro-section" aria-label="힐즈하이 소개">
+  <img src="logo_hillshigh.png" alt="힐즈하이" class="intro-logo" />
+  <p class="intro-headline">이제 일본에서도,<br />안심하고 사랑할 수 있는 사람을<br />힐즈하이에서 만나세요.</p>
   </section>
 
-  <!-- 서비스 - 골드스푼 인증 카드 (스택) -->
-  <section class="goldspoon-cards-section" id="goldspoon-cards" aria-label="골드스푼 인증 카드">
-    <h2 class="goldspoon-cards-title">엄격한 심사로<br />선별된 회원 퀄리티</h2>
-    <div class="goldspoon-cards-wrap" id="goldspoon-cards-wrap">
-      <!-- 가장 뒤: 부동산, 주식 인증 카드 -->
-      <article class="goldspoon-card card-stack-back2" role="group" aria-label="부동산, 주식 인증한 사업가">
-        <p class="card-title">부동산, 주식 인증한<br />사업가</p>
-        <div class="card-img-wrap">
-          <img src="assets/img_profile04.png" alt="" />
-        </div>
-        <div class="card-badge">
-          <img src="assets/img_badge04.png" alt="" />
-          <p class="card-label card-label-gold">100억+ 초고액자산</p>
-        </div>
-        <p class="card-desc">소유권을 증명할 수 있는 부동산 등기서류<br />등을 제출하여 자산을 인증했습니다</p>
-      </article>
-      <!-- 맨 뒤: 엘리트 집안 인증 카드 -->
-      <article class="goldspoon-card card-stack-back" role="group" aria-label="엘리트 집안 인증한 아나운서">
-        <p class="card-title">엘리트 집안 인증한<br />아나운서</p>
-        <div class="card-img-wrap">
-          <img src="assets/img_profile03.png" alt="" />
-        </div>
-        <div class="card-badge">
-          <img src="assets/img_badge03.png" alt="" />
-          <p class="card-label card-label-gold">엘리트 집안</p>
-        </div>
-        <p class="card-desc">법조계/의료계 부모님 직업 서류를 제출하여<br />엘리트 집안임을 인증했습니다</p>
-      </article>
-      <!-- 가운데: 의사 면허증 인증 카드 -->
-      <article class="goldspoon-card card-stack-mid" role="group" aria-label="의사 면허증 인증한 전문직">
-        <p class="card-title">의사 면허증 인증한<br />전문직</p>
-        <div class="card-img-wrap">
-          <img src="assets/img_profile02.png" alt="" />
-        </div>
-        <div class="card-badge">
-          <img src="assets/img_badge02.png" alt="" />
-          <p class="card-label card-label-gold">전문직</p>
-        </div>
-        <p class="card-desc">본인 성명이 표기된 의사 면허증 자료를 통해<br />전문직종임을 인증했습니다</p>
-      </article>
-      <!-- 맨 앞: 미스코리아 인증 카드, 0° -->
-      <article class="goldspoon-card card-stack-front" role="group" aria-label="미스코리아 인증 현직 모델">
-        <p class="card-title">미스코리아 인증한<br />현직 모델</p>
-        <div class="card-img-wrap">
-          <img src="assets/img_profile01.png" alt="" />
-        </div>
-        <div class="card-badge">
-          <img src="assets/img_badge01.png" alt="" />
-          <p class="card-label card-label-gold">인플루언서</p>
-        </div>
-        <p class="card-desc">본인의 이름과 사진이 기재된 자료 제출하여<br />미스코리아 출신임을 인증했습니다</p>
-      </article>
+  <!-- (삭제됨) 서비스 - 힐즈하이 인증 카드 (스택) 섹션 -->
+
+  <!-- 내 주변 상위 1% 탐색 섹션 (복사본) -->
+  <section class="goldspoon-near-section" aria-label="내 주변 상위 1% 탐색">
+    <div class="goldspoon-near-inner">
+      <div class="goldspoon-near-copy">
+        <h2 class="goldspoon-near-title">
+          심사를 통과한 분만<br />
+          가입할 수 있습니다
+        </h2>
+        <p class="goldspoon-near-desc">
+일상과 연애, 고민상담까지
+심사를 통과한 회원들과
+마음껏 소통하세요 
+        </p>
+      </div>
+      <div class="goldspoon-near-visual" aria-hidden="true">
+        <img src="mockup_profile_j.png" alt="내 주변 상위 1% 탐색 목업" class="goldspoon-near-mockup" />
+      </div>
     </div>
   </section>
-
-  <!-- 국내최대 2030 하이엔드 커뮤니티 섹션 -->
-  <section class="goldspoon-lounge-section" aria-label="국내최대 2030 하이엔드 커뮤니티">
+  
+  <!-- 일본 하이엔드 커뮤니티 섹션 -->
+  <section class="goldspoon-lounge-section" aria-label="일본 하이엔드 커뮤니티">
     <div class="goldspoon-lounge-inner">
       <div class="goldspoon-lounge-copy">
         <h2 class="goldspoon-lounge-title">
-          국내최대 2030<br />
-          하이엔드 커뮤니티
+          당신의 취향을 분석한<br />
+          맞춤 소개
         </h2>
         <p class="goldspoon-lounge-desc">
-상위권 남녀만 모인 프리미엄 라운지에서
-실시간으로 대화를 나눠보세요. 다양한 주제의 소통부터
-마음에 드는 이성과의 인연까지 자연스럽게 이어집니다.
+모든 회원이 특별하니까
+당신의 취향을 분석해서
+매일 엄선된 회원을 소개 합니다
         </p>
       </div>
       <div class="goldspoon-lounge-visual" aria-hidden="true">
-        <img src="mockup_lounge.png" alt="" class="goldspoon-lounge-mockup" />
+        <img src="mockup_profilecard_j.png" alt="" class="goldspoon-lounge-mockup" />
       </div>
     </div>
   </section>
@@ -825,45 +811,45 @@
     <div class="goldspoon-near-inner">
       <div class="goldspoon-near-copy">
         <h2 class="goldspoon-near-title">
-          내주변<br />
-          상위 1% 탐색
+          하이엔드 커뮤니티<br />
+          라운지
         </h2>
         <p class="goldspoon-near-desc">
-내 주변의 상위 1% 이성을 빠르게
-탐색해보세요. 조건과 매력을 갖춘 상대를
-한눈에 확인할 수 있어요.
+자격을 갖춘 사람들의 만남,
+안심하고 연애 할 수 있도록
+힐즈 하이가 대신 철저히 확인합니다
         </p>
       </div>
       <div class="goldspoon-near-visual" aria-hidden="true">
-        <img src="mockup_near.png" alt="내 주변 상위 1% 탐색 목업" class="goldspoon-near-mockup" />
+        <img src="mockup_lounge_j.png" alt="내 주변 상위 1% 탐색 목업" class="goldspoon-near-mockup" />
       </div>
     </div>
   </section>
 
-  <!-- 골드스푼 다운로드 CTA 섹션 -->
-  <section class="goldspoon-download-section" aria-label="골드스푼 다운로드 안내">
-    <div class="goldspoon-download-inner">
-      <div class="goldspoon-download-copy">
-        <img src="logo_goldspoon.png" alt="골드스푼 로고" class="goldspoon-download-logo" />
-        <p class="goldspoon-download-title-main">선별된 남녀들의 만남</p>
-        <p class="goldspoon-download-title-sub">골드스푼</p>
-        <a href="#" class="goldspoon-download-button" id="goldspoon-download-btn">
-          앱 다운로드하기
-        </a>
-      </div>
+  <!-- 힐즈하이 다운로드 CTA 섹션 -->
+  <section class="goldspoon-download-section" aria-label="힐즈하이 다운로드 안내">
+  <div class="goldspoon-download-inner">
+    <div class="goldspoon-download-copy">
+      <img src="logo_hillshigh.png" alt="힐즈하이 로고" class="goldspoon-download-logo" />
+      <p class="goldspoon-download-title-main">일본 최초 서류심사제</p>
+      <p class="goldspoon-download-title-sub" style="color: #00AEFF;">힐즈하이</p>
+      <a href="#" class="goldspoon-download-button" id="goldspoon-download-btn">
+        앱 다운로드하기
+      </a>
+    </div>
       <div class="goldspoon-download-visual" aria-hidden="true">
-        <img src="img_gs_download.png" alt="골드스푼 앱 다운로드 목업" class="goldspoon-download-mockup" />
+        <img src="img_hillshigh_download.png" alt="힐즈하이 앱 다운로드 목업" class="goldspoon-download-mockup" />
       </div>
     </div>
   </section>
 
-  <!-- 골드스푼 앱 다운로드 QR 모달 -->
+  <!-- 힐즈하이 앱 다운로드 QR 모달 -->
   <div id="download-modal-backdrop" class="download-modal-backdrop hidden" aria-hidden="true">
     <div class="download-modal" role="dialog" aria-modal="true" aria-labelledby="download-modal-title">
       <button type="button" class="download-modal-close" id="download-modal-close" aria-label="닫기">×</button>
-      <h3 id="download-modal-title" class="download-modal-title">골드스푼 앱 다운로드</h3>
+      <h3 id="download-modal-title" class="download-modal-title">힐즈하이 앱 다운로드</h3>
       <p class="download-modal-subtitle">QR 코드를 스캔하여 다운로드 해주세요</p>
-      <img src="themembers_onelink_qr.svg" alt="골드스푼 앱 다운로드 QR 코드" class="download-modal-qr" />
+      <img src="hillshigh_onelink_qr.svg" alt="힐즈하이 앱 다운로드 QR 코드" class="download-modal-qr" />
     </div>
   </div>
 

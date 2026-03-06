@@ -47,6 +47,9 @@
     .animate-scroll {
       animation: scroll-left 30s linear infinite;
     }
+    .animate-scroll-delay {
+      animation-delay: 1.5s;
+    }
     .scroll-mask {
       mask-image: linear-gradient(to right, transparent 0%, #151515 5%, #151515 95%, transparent 100%);
       -webkit-mask-image: linear-gradient(to right, transparent 0%, #151515 5%, #151515 95%, transparent 100%);
@@ -367,11 +370,11 @@
 
     <!-- 중앙 텍스트 영역 -->
     <div class="flex min-h-screen flex-col items-center justify-center px-5 text-center md:px-6">
-      <h1 class="mb-4 text-3xl font-bold text-white md:text-5xl lg:text-6xl" style="line-height: 140%;">
+      <h1 class="mb-4 text-2xl font-bold text-white md:text-5xl lg:text-6xl" style="line-height: 140%;">
         자격을 갖춘 사람들을 위해<br />가치 있는 매칭 서비스를 제공합니다
       </h1>
-      <p class="text-3xl font-light tracking-wide text-white/90">
-        For Those Who Qualify
+      <p class="text-base font-light tracking-wide text-white/90 md:text-3xl">
+        Only for Those Who Qualify
       </p>
     </div>
     <!-- 스크롤 유도 화살표 -->
@@ -387,25 +390,25 @@
     <!-- 인증형 데이팅앱 패러다임 / 2x2 카드 섹션 -->
     <section id="info-cards" class="bg-white px-5 py-24 md:px-12 md:py-32 lg:px-16" aria-label="서비스 현황">
       <div class="mx-auto max-w-5xl">
-        <h2 class="mb-10 text-left text-2xl font-bold leading-tight text-neutral-900 md:mb-12 md:text-3xl lg:text-4xl" style="line-height: 1.4;">
+        <h2 class="mb-5 text-left text-2xl font-bold leading-tight text-neutral-900 md:mb-12 md:text-3xl lg:text-4xl" style="line-height: 1.4;">
           우리는 인증형 데이팅앱의<br />새로운 패러다임을 만들어 왔습니다
         </h2>
         <!-- 1행: 카드1(좁게) 카드2·3 / 2행: 카드4(넓게) 카드5 -->
         <div class="flex flex-col gap-4 md:gap-5">
           <div class="grid grid-cols-1 gap-4 md:grid-cols-[0.8fr_1.1fr_1.1fr] md:gap-5">
             <!-- 1행: 이미지 -->
-            <div class="h-[10rem] overflow-hidden rounded-2xl bg-neutral-100 shadow-sm md:h-[11rem]">
+            <div class="hidden h-[7.5rem] overflow-hidden rounded-2xl bg-neutral-100 shadow-sm md:block md:h-[11rem]">
               <img src="img_info01.png" alt="" class="h-full w-full object-cover" />
             </div>
             <!-- 1행: 누적 회원 수 -->
-            <div class="flex h-[10rem] flex-col justify-end rounded-2xl bg-[#f8f8f8] p-6 pb-5 shadow-sm md:h-[11rem] md:p-8 md:pb-6">
+            <div class="flex h-[7.5rem] flex-col justify-end rounded-2xl bg-[#f8f8f8] p-6 pb-5 shadow-sm md:h-[11rem] md:p-8 md:pb-6">
               <p class="text-sm text-neutral-500 md:text-base">누적 회원 수</p>
               <p class="mt-2 text-3xl font-semibold text-neutral-900 md:text-4xl">
                 <span class="metric-number" data-target="320000" data-suffix="+">0+</span>
               </p>
             </div>
             <!-- 1행: MAU -->
-            <div class="flex h-[10rem] flex-col justify-end rounded-2xl bg-[#f8f8f8] p-6 pb-5 shadow-sm md:h-[11rem] md:p-8 md:pb-6">
+            <div class="flex h-[7.5rem] flex-col justify-end rounded-2xl bg-[#f8f8f8] p-6 pb-5 shadow-sm md:h-[11rem] md:p-8 md:pb-6">
               <p class="text-sm text-neutral-500 md:text-base">월간 활성 사용자 (MAU)</p>
               <p class="mt-2 text-3xl font-semibold text-neutral-900 md:text-4xl">
                 <span class="metric-number" data-target="27000" data-suffix="+">0+</span>
@@ -414,7 +417,7 @@
           </div>
           <div class="grid grid-cols-1 gap-4 md:grid-cols-[1.25fr_1.75fr] md:gap-5">
             <!-- 2행: 일 평균 사용 시간 (카드4만 넓게) -->
-            <div class="flex h-[10rem] flex-col justify-end rounded-2xl bg-[#f8f8f8] p-6 pb-5 shadow-sm md:h-[11rem] md:p-8 md:pb-6">
+            <div class="flex h-[7.5rem] flex-col justify-end rounded-2xl bg-[#f8f8f8] p-6 pb-5 shadow-sm md:h-[11rem] md:p-8 md:pb-6">
               <p class="text-sm text-neutral-500 md:text-base">일 평균 사용 시간</p>
               <p class="mt-2 text-3xl font-semibold text-neutral-900 md:text-4xl">
                 <span>매일 </span>
@@ -422,7 +425,7 @@
               </p>
             </div>
             <!-- 2행: 유저 방문 횟수 (이미지 배경 + 텍스트 오버레이) -->
-            <div class="relative h-[10rem] overflow-hidden rounded-2xl bg-neutral-200 shadow-sm md:h-[11rem]" style="background-image: url('img_info02.png'); background-size: cover; background-position: center;">
+            <div class="relative h-[7.5rem] overflow-hidden rounded-2xl bg-neutral-200 shadow-sm md:h-[11rem]" style="background-image: url('img_info02.png'); background-size: cover; background-position: center;">
               <div class="absolute inset-0 flex flex-col justify-end p-6 pb-5 md:p-8 md:pb-6">
                 <p class="text-sm text-neutral-600 md:text-base">유저 방문 횟수</p>
                 <p class="mt-2 text-3xl font-semibold text-[#151515] md:text-4xl">
@@ -451,21 +454,77 @@
 
     <!-- 단체 섹션 -->
     <section id="group" class="bg-white" aria-label="단체">
-      <div class="px-5 pt-32 pb-8 md:px-50 md:pt-40 md:pb-10 lg:px-58 lg:pb-12">
+      <div class="px-5 pt-32 pb-0 md:px-50 md:pt-40 md:pb-2 lg:px-58 lg:pb-4">
         <div class="mx-auto max-w-5xl">
           <!-- 텍스트 -->
           <div class="mb-6 flex flex-col gap-20 md:flex-row md:items-start md:gap-28">
             <h2 class="shrink-0 text-2xl font-bold leading-tight text-[#151515] md:text-3xl lg:text-4xl" style="line-height: 1.4;">
               전문성과 공신력을 갖춘<br />기관과 함께합니다
             </h2>
-            <p class="mt-0.5 text-neutral-600 md:max-w-xl md:text-base">
+            <p class="mt-0.5 hidden text-neutral-600 md:block md:max-w-xl md:text-base">
               공중보건한의사협회, 의료·전문직 단체 등 신뢰 기반의 네트워크와 협력하고,<br />NICE평가정보, 하이픈 등 공신력 있는 정보 검증 기관을 통해<br />더 안심할 수 있는 만남을 만듭니다.
             </p>
           </div>
         </div>
       </div>
       <!-- box01~09 가로 흐름 애니메이션 - 전체 폭, 여백 없음 -->
-      <div class="w-full overflow-hidden pb-32 md:pb-40">
+      <!-- 모바일: 두 줄, 각 줄 가로 흐름 애니메이션 -->
+      <div class="flex flex-col gap-0 overflow-hidden pb-32 pt-0 md:hidden mt-4">
+        <div class="w-full overflow-hidden">
+          <div class="flex w-max animate-scroll gap-6 py-2">
+            <div class="flex shrink-0 gap-6">
+              <img src="box01.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box02.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box03.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box04.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box05.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box06.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box07.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box08.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box09.png" alt="ISMS-P 인증" class="h-20 w-auto rounded-xl object-contain" />
+            </div>
+            <div class="flex shrink-0 gap-6">
+              <img src="box01.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box02.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box03.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box04.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box05.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box06.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box07.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box08.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box09.png" alt="ISMS-P 인증" class="h-20 w-auto rounded-xl object-contain" />
+            </div>
+          </div>
+        </div>
+        <div class="w-full overflow-hidden -mt-5">
+          <div class="flex w-max animate-scroll animate-scroll-delay gap-6 py-2">
+            <div class="flex shrink-0 gap-6">
+              <img src="box05.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box06.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box07.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box08.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box09.png" alt="ISMS-P 인증" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box01.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box02.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box03.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box04.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+            </div>
+            <div class="flex shrink-0 gap-6">
+              <img src="box05.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box06.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box07.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box08.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box09.png" alt="ISMS-P 인증" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box01.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box02.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box03.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+              <img src="box04.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 태블릿 이상: 한 줄 가로 흐름 애니메이션 -->
+      <div class="hidden w-full overflow-hidden pb-32 md:block md:pb-40">
         <div class="flex w-max animate-scroll gap-6 py-2">
           <div class="flex shrink-0 gap-6">
             <img src="box01.png" alt="협력 기관" class="h-20 w-auto rounded-xl object-contain md:h-28" />
@@ -494,8 +553,8 @@
     </section>
 
     <section id="user-story" class="story-section bg-white" aria-label="유저 이야기">
-      <div class="story-track">
-        <div class="mx-auto w-full max-w-5xl px-5 py-14 md:px-0 md:py-20">
+      <div class="story-track pt-0">
+        <div class="mx-auto w-full max-w-5xl px-5 pt-0 pb-14 md:px-0 md:pb-20 md:pt-0">
           <h3 class="story-title mb-6 text-center text-2xl font-bold leading-tight text-[#151515] md:mb-8 md:text-3xl lg:mb-10 lg:text-4xl" style="line-height: 1.4;">
             우리는 누군가의 인생을<br />바꾸는 일을 하고 있습니다
           </h3>
@@ -503,11 +562,11 @@
           <div class="flex justify-center">
             <div class="flex w-full max-w-[840px] flex-col gap-0.5 md:gap-2">
               <!-- Park님 스토리 -->
-              <article class="flex flex-col gap-5 rounded-3xl bg-white p-6 md:flex-row md:p-7">
-                <div class="flex-shrink-0 overflow-hidden rounded-3xl bg-neutral-100">
+              <article class="flex flex-col gap-5 rounded-none bg-white px-0 pt-0 pb-6 md:flex-row md:rounded-3xl md:px-7 md:pt-7 md:pb-7 -mx-5 md:mx-0">
+                <div class="flex-shrink-0 w-screen overflow-hidden rounded-none bg-neutral-100 ml-[calc(50%-50vw)] md:ml-0 md:w-80 md:rounded-3xl">
                   <img src="img_user01.png" alt="Park님의 웨딩 사진" class="h-80 w-full object-cover md:h-80 md:w-80" />
                 </div>
-                <div class="flex flex-1 flex-col justify-center text-sm leading-relaxed text-neutral-700 md:text-base">
+                <div class="flex flex-1 flex-col justify-center px-0 text-sm leading-relaxed text-neutral-700 md:px-0 md:text-base">
                   <p class="mb-3 text-sm font-semibold text-neutral-900 md:text-base">
                     <span>Park님</span>
                     <span class="mx-2 text-neutral-300">|</span>
@@ -525,11 +584,11 @@
               </article>
 
               <!-- Kim님 스토리 -->
-              <article class="flex flex-col gap-5 rounded-3xl bg-white p-6 md:flex-row md:p-7">
-                <div class="flex-shrink-0 overflow-hidden rounded-3xl bg-neutral-100">
+              <article class="flex flex-col gap-5 rounded-none bg-white px-0 pt-0 pb-6 md:flex-row md:rounded-3xl md:px-7 md:pt-7 md:pb-7 -mx-5 md:mx-0">
+                <div class="flex-shrink-0 w-screen overflow-hidden rounded-none bg-neutral-100 ml-[calc(50%-50vw)] md:ml-0 md:w-80 md:rounded-3xl">
                   <img src="img_user02.png" alt="Kim님의 바다 사진" class="h-80 w-full object-cover md:h-80 md:w-80" />
                 </div>
-                <div class="flex flex-1 flex-col justify-center text-sm leading-relaxed text-neutral-700 md:text-base">
+                <div class="flex flex-1 flex-col justify-center px-0 text-sm leading-relaxed text-neutral-700 md:px-0 md:text-base">
                   <p class="mb-3 text-sm font-semibold text-neutral-900 md:text-base">
                     <span>Kim님</span>
                     <span class="mx-2 text-neutral-300">|</span>
@@ -549,11 +608,11 @@
               </article>
 
               <!-- Lee님 스토리 -->
-              <article class="flex flex-col gap-5 rounded-3xl bg-white p-6 md:flex-row md:p-7">
-                <div class="flex-shrink-0 overflow-hidden rounded-3xl bg-neutral-100">
+              <article class="flex flex-col gap-5 rounded-none bg-white px-0 pt-0 pb-6 md:flex-row md:rounded-3xl md:px-7 md:pt-7 md:pb-7 -mx-5 md:mx-0">
+                <div class="flex-shrink-0 w-screen overflow-hidden rounded-none bg-neutral-100 ml-[calc(50%-50vw)] md:ml-0 md:w-80 md:rounded-3xl">
                   <img src="img_user03.png" alt="Lee님의 골프 사진" class="h-80 w-full object-cover md:h-80 md:w-80" />
                 </div>
-                <div class="flex flex-1 flex-col justify-center text-sm leading-relaxed text-neutral-700 md:text-base">
+                <div class="flex flex-1 flex-col justify-center px-0 text-sm leading-relaxed text-neutral-700 md:px-0 md:text-base">
                   <p class="mb-3 text-sm font-semibold text-neutral-900 md:text-base">
                     <span>Lee님</span>
                     <span class="mx-2 text-neutral-300">|</span>
@@ -576,18 +635,18 @@
     </section>
 
     <!-- 우리의 이야기 / 연혁 섹션 -->
-    <section id="history" class="history-section bg-white px-5 py-24 md:px-50 md:py-32 lg:px-58" aria-label="우리의 이야기">
+    <section id="history" class="history-section bg-white px-2 pt-0 pb-24 md:px-50 md:py-32 lg:px-58" aria-label="우리의 이야기">
       <div class="mx-auto w-full max-w-5xl">
         <div class="flex flex-col gap-16 lg:flex-row lg:gap-20">
           <!-- 왼쪽: 타이틀 + 주요 지표 -->
-          <div class="flex-1 shrink-0">
+          <div class="flex-1 shrink-0 text-center md:text-left">
             <h2 class="mb-12 text-2xl font-bold leading-tight text-[#151515] md:text-3xl lg:text-4xl" style="line-height: 1.4;">
               우리의 이야기는<br />지금부터 시작입니다
             </h2>
             <div class="space-y-10">
               <div>
                 <p class="mb-2 text-lg text-neutral-500 md:text-xl">연간 매출액</p>
-                <p class="text-3xl font-bold text-neutral-800 md:text-4xl lg:text-5xl">124억 원</p>
+                <p class="text-3xl font-bold text-neutral-800 md:text-4xl lg:text-5xl">111억 원</p>
               </div>
               <div>
                 <p class="mb-2 text-lg text-neutral-500 md:text-xl">서비스 가입자 수</p>
@@ -602,14 +661,14 @@
           <!-- 오른쪽: 연혁 타임라인 -->
           <div class="flex flex-1 flex-col pl-4 pt-8 lg:pl-8 lg:pt-10">
             <div class="relative">
-              <div class="absolute left-0 top-2 bottom-12 w-0.5 -translate-x-1/2 bg-neutral-300" aria-hidden="true"></div>
+              <div class="absolute left-0 top-2 bottom-16 md:bottom-12 w-0.5 -translate-x-1/2 bg-neutral-300" aria-hidden="true"></div>
               <!-- 2026 -->
               <div class="history-item relative -left-8 mb-10 pl-[52px]">
                 <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
                 <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2026</h3>
                 <ul class="space-y-1.5 text-sm text-neutral-600">
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">04</span><span>일본 데이팅 시장 진출 '힐즈하이' 론칭</span></li>
                   <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">03</span><span>ISMS-P 인증 획득</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">02</span><span>일본 데이팅 시장 진출 '힐즈하이' 론칭</span></li>
                 </ul>
               </div>
               <!-- 2025 -->
@@ -630,7 +689,7 @@
                 <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2024</h3>
                 <ul class="space-y-1.5 text-sm text-neutral-600">
                   <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">12</span><span>매출 100억 돌파</span></li>
-                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">11</span><span>소벤처기업진흥공단 글로벌비즈니스센터 입주기업 선정</span></li>
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">11</span><span>중소벤처기업진흥공단 글로벌비즈니스센터 입주기업 선정</span></li>
                   <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">07</span><span>국내 결혼중개업 등록</span></li>
                   <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">06</span><span>홈텍스 연계 간편인증 서비스 '블루라벨' 도입</span></li>
                   <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">04</span><span>벤처기업확인기관 '혁신성장유형' 벤처기업 인증</span></li>
@@ -694,6 +753,7 @@
                 <span class="absolute left-0 top-2 flex h-4 w-4 translate-x-6 items-center justify-center rounded-full border-2 border-neutral-400 bg-white"></span>
                 <h3 class="-mt-3 mb-3 text-xl font-bold text-neutral-800">2018</h3>
                 <ul class="space-y-1.5 text-sm text-neutral-600">
+                  <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">11</span><span>한국법인 설립</span></li>
                   <li class="flex gap-2"><span class="w-6 shrink-0 history-month-num">04</span><span>골드스푼 서비스 최초 론칭</span></li>
                 </ul>
               </div>

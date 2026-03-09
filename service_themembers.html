@@ -1108,6 +1108,15 @@
 
       function openModal(e) {
         if (e) e.preventDefault();
+
+        // 모바일(좁은 뷰포트)에서는 모달 대신 바로 다운로드 링크로 이동
+        var isMobileView = window.matchMedia('(max-width: 768px)').matches;
+        if (isMobileView) {
+          window.location.href = 'https://themembers.onelink.me/Croy/24o5nmo2';
+          return;
+        }
+
+        // 데스크톱에서는 기존처럼 QR 모달 열기
         backdrop.classList.remove('hidden');
         backdrop.setAttribute('aria-hidden', 'false');
       }

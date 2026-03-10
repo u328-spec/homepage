@@ -66,10 +66,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: flex-end;
       gap: 3rem;
-      padding: 3.5rem 1.25rem 0;
-      min-height: calc(100vh - 3.5rem);
+      padding: 8rem 1.25rem 0rem;
+      height: 100vh;
     }
     .goldspoon-hero-copy {
       flex: 1;
@@ -86,19 +86,19 @@
     .goldspoon-hero-visual {
       flex: 1;
       display: flex;
-      justify-content: center;
+      justify-content: end;
       align-items: center;
     }
     .goldspoon-hero-mockup {
       display: block;
       width: 100%;
-      max-width: 360px;
+      max-width: 300px;
       height: auto;
       object-fit: contain;
     }
     @media (min-width: 768px) {
       .goldspoon-hero-inner {
-        padding: 4rem 3rem 0;
+        padding: 10rem 3rem 0;
       }
       .goldspoon-hero-title {
         font-size: 2.6rem;
@@ -136,6 +136,19 @@
         max-width: 360px;
         width: 100%;
         height: auto;
+      }
+    }
+    @media (max-width: 767px) and (max-height: 800px) {
+      .goldspoon-hero-inner {
+        height: auto;
+        padding: 8rem 1.25rem 0rem;
+        gap: 2.5rem;
+      }
+      .goldspoon-hero-title {
+        font-size: 1.5rem;
+      }
+      .goldspoon-hero-mockup {
+        max-width: 260px;
       }
     }
 
@@ -789,84 +802,9 @@
       <img src="bg_themembers.png" alt="" class="h-full w-full object-cover object-center" />
     </div>
     
-    <!-- 고정 헤더 - 푸터와 왼쪽 정렬 -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-300 md:py-4">
-      <div class="mx-auto flex max-w-5xl items-center justify-between px-5 md:px-12 lg:px-16">
-      <a href="index.html" class="flex items-center md:-ml-12 lg:-ml-16">
-        <img src="logo_triplecomma.svg" alt="TRIPLE COMMA" class="h-3.5 logo-invert md:h-4" />
-      </a>
-      <nav class="-mr-6 hidden items-center gap-[7.5rem] text-white transition-colors duration-300 md:-mr-12 md:flex lg:-mr-16">
-        <a href="index.html" class="text-sm font-medium transition-colors duration-300 hover:opacity-80 hover:underline md:text-base">회사 소개</a>
-        <div class="service-trigger relative inline-block">
-          <a href="service.html" class="text-sm font-medium transition-colors duration-300 hover:opacity-80 hover:underline md:text-base">서비스</a>
-          <div class="mega-menu absolute left-1/2 top-full pt-2">
-            <div class="w-72 rounded-2xl bg-white p-4 shadow-lg">
-            <a href="service.html" class="mb-2 flex items-center gap-4 rounded-xl px-3 py-3 transition hover:bg-neutral-200 last:mb-0">
-              <img src="logo_goldspoon.png" alt="골드스푼" class="h-10 w-10 shrink-0 rounded-lg object-contain" />
-              <div>
-                <p class="font-bold text-neutral-800">골드스푼</p>
-                <p class="text-sm text-neutral-500">검증기반 2030 데이팅앱</p>
-              </div>
-            </a>
-            <a href="service_themembers.html" class="mb-2 flex items-center gap-4 rounded-xl px-3 py-3 transition hover:bg-neutral-200 last:mb-0">
-              <img src="logo_themembers.png" alt="더멤버스" class="h-10 w-10 shrink-0 rounded-lg object-contain" />
-              <div>
-                <p class="font-bold text-neutral-800">더멤버스</p>
-                <p class="text-sm text-neutral-500">검증기반 3040 데이팅앱</p>
-              </div>
-            </a>
-            <a href="service_hillshigh.html" class="flex items-center gap-4 rounded-xl px-3 py-3 transition hover:bg-neutral-200">
-              <img src="logo_hillshigh.png" alt="힐즈하이" class="h-10 w-10 shrink-0 rounded-lg object-contain" />
-              <div>
-                <p class="font-bold text-neutral-800">힐즈하이</p>
-                <p class="text-sm text-neutral-500">검증기반 일본 데이팅앱</p>
-              </div>
-            </a>
-            </div>
-          </div>
-        </div>
-        <a href="career.html" class="text-sm font-medium transition-colors duration-300 hover:opacity-80 hover:underline md:text-base">채용</a>
-      </nav>
-      <div class="relative flex md:hidden">
-        <button type="button" class="mobile-menu-btn flex h-9 w-9 flex-col items-center justify-center gap-1 rounded-lg border-0 bg-transparent p-0" aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기" id="mobile-menu-btn">
-          <span class="block h-0.5 w-4 rounded-full"></span>
-          <span class="block h-0.5 w-4 rounded-full"></span>
-          <span class="block h-0.5 w-4 rounded-full"></span>
-        </button>
-      </div>
-      </div>
-      <div id="mobile-menu" class="fixed inset-0 z-[60] hidden bg-white md:hidden" aria-hidden="true">
-        <div class="flex h-full flex-col">
-          <div class="flex flex-shrink-0 items-center justify-between px-5 py-5 md:px-6">
-            <a href="index.html" class="flex items-center" onclick="document.getElementById('mobile-menu').classList.add('hidden');">
-              <img src="logo_triplecomma.svg" alt="TRIPLE COMMA" class="h-4 text-[#151515]" />
-            </a>
-            <button type="button" class="mobile-nav-item flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border-0 bg-transparent text-2xl text-[#151515] hover:bg-[#f0f0f0] active:bg-[#e5e5e5]" aria-label="메뉴 닫기" id="mobile-menu-close">×</button>
-          </div>
-          <nav class="flex-1 overflow-auto px-5 py-3 md:px-6">
-            <a href="index.html" class="mobile-nav-item block rounded-lg px-4 py-4 text-lg font-bold text-[#151515]" onclick="document.getElementById('mobile-menu').classList.add('hidden');">회사소개</a>
-            <div class="py-1">
-              <p class="px-4 py-3 text-lg font-bold text-[#151515]">서비스</p>
-              <div id="mobile-service-sub" class="mobile-service-sub overflow-hidden pl-4 pt-1">
-                <a href="service.html" class="mobile-nav-item mb-1 flex items-center gap-4 rounded-lg px-4 py-3 text-left text-[#151515]" onclick="document.getElementById('mobile-menu').classList.add('hidden');">
-                  <img src="logo_goldspoon.png" alt="" class="h-8 w-8 shrink-0 rounded-lg object-contain" />
-                  <span class="font-semibold">골드스푼</span>
-                </a>
-                <a href="service_themembers.html" class="mobile-nav-item mb-1 flex items-center gap-4 rounded-lg px-4 py-3 text-left text-[#151515]" onclick="document.getElementById('mobile-menu').classList.add('hidden');">
-                  <img src="logo_themembers.png" alt="" class="h-8 w-8 shrink-0 rounded-lg object-contain" />
-                  <span class="font-semibold">더멤버스</span>
-                </a>
-                <a href="service_hillshigh.html" class="mobile-nav-item flex items-center gap-4 rounded-lg px-4 py-3 text-left text-[#151515]" onclick="document.getElementById('mobile-menu').classList.add('hidden');">
-                  <img src="logo_hillshigh.png" alt="" class="h-8 w-8 shrink-0 rounded-lg object-contain" />
-                  <span class="font-semibold">힐즈하이</span>
-                </a>
-              </div>
-            </div>
-            <a href="career.html" class="mobile-nav-item block rounded-lg px-4 py-4 text-lg font-bold text-[#151515]" onclick="document.getElementById('mobile-menu').classList.add('hidden');">채용</a>
-          </nav>
-        </div>
-      </div>
-    </header>
+    <!-- 고정 헤더 (공통) -->
+    <div id="site-header"></div>
+    <script src="includes/header.js"></script>
 
     <!-- 메인 콘텐츠: lounge와 동일 구조 (inner > copy + visual) -->
     <div class="goldspoon-hero-inner">
@@ -999,41 +937,6 @@
   </footer>
 
   <script>
-    const header = document.getElementById('header');
-    const scrollThreshold = 50;
-    function updateHeader() {
-      header.classList.toggle('scrolled', window.scrollY > scrollThreshold);
-    }
-    window.addEventListener('scroll', updateHeader);
-    updateHeader();
-
-    (function initMobileMenu() {
-      var btn = document.getElementById('mobile-menu-btn');
-      var menu = document.getElementById('mobile-menu');
-      var closeBtn = document.getElementById('mobile-menu-close');
-      if (!btn || !menu) return;
-      function openMenu() {
-        menu.classList.remove('hidden');
-        menu.setAttribute('aria-hidden', 'false');
-        btn.setAttribute('aria-expanded', 'true');
-        btn.setAttribute('aria-label', '메뉴 닫기');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeMenu() {
-        menu.classList.add('hidden');
-        menu.setAttribute('aria-hidden', 'true');
-        btn.setAttribute('aria-expanded', 'false');
-        btn.setAttribute('aria-label', '메뉴 열기');
-        document.body.style.overflow = '';
-      }
-      btn.addEventListener('click', function() {
-        if (menu.classList.contains('hidden')) openMenu();
-        else closeMenu();
-      });
-      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-      menu.querySelectorAll('a').forEach(function(link) { link.addEventListener('click', closeMenu); });
-    })();
-
     (function initGoldspoonCardStack() {
       var wrap = document.getElementById('goldspoon-cards-wrap');
       if (!wrap) return;

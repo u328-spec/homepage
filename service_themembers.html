@@ -553,6 +553,18 @@
       }
     }
 
+    /* 모바일 전용: 서비스 목업 이미지 공통 크기 조절 */
+    @media (max-width: 767px) {
+      .goldspoon-lounge-visual img,
+      .goldspoon-near-visual img,
+      .goldspoon-cards-images img {
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        object-fit: contain;
+      }
+    }
+
     /* 골드스푼 다운로드 CTA 섹션 */
     .goldspoon-download-section {
       background-color: #312F2D;
@@ -833,7 +845,7 @@
     <h2 class="goldspoon-cards-title">홈텍스로 소득, 혼인 서류<br />조회하여 허위 인증 불가</h2>
     <div class="goldspoon-cards-images">
       <img src="mockup_document.png" alt="소득 및 서류 심사 화면" />
-      <img src="mockup_profile_m.png" alt="프로필 및 인증 뱃지 화면" />
+      <img src="mockup_profile_m.png" alt="프로필 및 인증 뱃지 화면" class="hidden md:block" />
     </div>
   </section>
 
@@ -937,6 +949,41 @@
   </footer>
 
   <script>
+    const header = document.getElementById('header');
+    const scrollThreshold = 50;
+    function updateHeader() {
+      header.classList.toggle('scrolled', window.scrollY > scrollThreshold);
+    }
+    window.addEventListener('scroll', updateHeader);
+    updateHeader();
+
+    (function initMobileMenu() {
+      var btn = document.getElementById('mobile-menu-btn');
+      var menu = document.getElementById('mobile-menu');
+      var closeBtn = document.getElementById('mobile-menu-close');
+      if (!btn || !menu) return;
+      function openMenu() {
+        menu.classList.remove('hidden');
+        menu.setAttribute('aria-hidden', 'false');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-label', '메뉴 닫기');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        menu.classList.add('hidden');
+        menu.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', '메뉴 열기');
+        document.body.style.overflow = '';
+      }
+      btn.addEventListener('click', function() {
+        if (menu.classList.contains('hidden')) openMenu();
+        else closeMenu();
+      });
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+      menu.querySelectorAll('a').forEach(function(link) { link.addEventListener('click', closeMenu); });
+    })();
+
     (function initGoldspoonCardStack() {
       var wrap = document.getElementById('goldspoon-cards-wrap');
       if (!wrap) return;

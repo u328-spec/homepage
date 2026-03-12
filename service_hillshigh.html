@@ -59,6 +59,7 @@
     #mobile-menu .mobile-nav-item:active {
       background-color: #e5e5e5;
     }
+
     /* 서비스 Hero - lounge와 동일 구조 (inner > copy + visual) */
     .goldspoon-hero-inner {
       max-width: 1040px;
@@ -149,6 +150,13 @@
       }
       .goldspoon-hero-mockup {
         max-width: 260px;
+      }
+    }
+
+    /* 큰 모바일 기기(예: iPhone 14 Plus)에서는 데스크톱과 동일 크기로 Hero 목업 표시 */
+    @media (max-width: 767px) and (min-height: 900px) {
+      .goldspoon-hero-mockup {
+        max-width: 360px;
       }
     }
 
@@ -557,22 +565,10 @@
       }
     }
 
-    /* 모바일 전용: 서비스 목업 이미지 공통 크기 조절 */
-    @media (max-width: 767px) {
-      .goldspoon-lounge-visual img,
-      .goldspoon-near-visual img,
-      .goldspoon-cards-images img {
-        width: 100%;
-        max-width: 280px;
-        height: auto;
-        object-fit: contain;
-      }
-    }
-
     /* 골드스푼 다운로드 CTA 섹션 */
     .goldspoon-download-section {
       background-color: #012130;
-      padding: 5rem 1.5rem 5rem; /* 모바일: 위아래 여백 5rem */
+      padding: 1rem 1.5rem 1rem; /* 모바일: 위아래 여백 1rem으로 넉넉하게 */
       color: #ffffff;
       overflow: hidden;
       position: relative;
@@ -605,40 +601,40 @@
       z-index: 1;
     }
     .goldspoon-download-copy {
-      flex: 0 0 auto; /* 모바일: 콘텐츠 높이만 사용 */
+      flex: 0 0 360px;
       max-width: 360px;
       text-align: center; /* 로고, 텍스트, 버튼 가운데 정렬 */
     }
     .goldspoon-download-logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 0.75rem;
-      margin: 0 auto 1.05rem; /* 로고도 가운데 정렬 */
+      width: 64px;
+      height: 64px;
+      border-radius: 1rem;
+      margin: 0 auto 1.5rem; /* 로고도 가운데 정렬 */
       object-fit: cover;
       display: block;
     }
     .goldspoon-download-title-main {
-      font-size: 1.4rem;
+      font-size: 1.8rem;
       font-weight: 700;
       line-height: 1.25;
-      margin: 0 0 0.28rem;
+      margin: 0 0 0.4rem;
     }
     .goldspoon-download-title-sub {
-      font-size: 1.4rem;
+      font-size: 1.8rem;
       font-weight: 700;
       line-height: 1.25;
       color: #EBBF59;
-      margin: 0 0 1.4rem;
+      margin: 0 0 2rem;
     }
     .goldspoon-download-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0.7rem 1.6rem;
+      padding: 0.85rem 1.9rem;
       border-radius: 9999px;
       background-color: #ffffff;
       color: #151515;
-      font-size: 0.8rem;
+      font-size: 0.95rem;
       font-weight: 500;
       text-decoration: none;
       transition: background-color 0.2s ease, transform 0.15s ease;
@@ -738,26 +734,11 @@
         gap: 4rem;
       }
       .goldspoon-download-copy {
-        flex: 0 0 360px; /* 태블릿 이상: 가로 360px 고정 */
         text-align: left; /* 데스크톱에서는 다시 왼쪽 정렬 */
       }
       .goldspoon-download-logo {
-        width: 64px;
-        height: 64px;
-        border-radius: 1rem;
-        margin: 0 auto 1.5rem;
         margin-left: 0;
         margin-right: 0;
-      }
-      .goldspoon-download-title-main {
-        margin: 0 0 0.4rem;
-      }
-      .goldspoon-download-title-sub {
-        margin: 0 0 2rem;
-      }
-      .goldspoon-download-button {
-        padding: 0.85rem 1.9rem;
-        font-size: 0.95rem;
       }
       .goldspoon-download-visual {
         display: flex; /* 데스크톱에서만 오른쪽 이미지 표시 */
@@ -836,12 +817,12 @@
     <div class="absolute inset-0 -z-10">
       <img src="bg_hillshigh.png" alt="" class="h-full w-full object-cover object-center" />
     </div>
-    
+
     <!-- 고정 헤더 (공통) -->
     <div id="site-header"></div>
     <script src="includes/header.js"></script>
 
-    <!-- 메인 콘텐츠: lounge와 동일 구조 (inner > copy + visual) -->
+    <!-- 메인 콘텐츠: 다른 서비스와 동일 구조 (inner > copy + visual) -->
     <div class="goldspoon-hero-inner">
       <div class="goldspoon-hero-copy">
         <h1 class="goldspoon-hero-title">
@@ -1071,7 +1052,7 @@
       startLoop();
     })();
 
-    // 골드스푼 앱 다운로드 모달
+    // 앱 다운로드 모달
     (function initDownloadModal() {
       var openBtn = document.getElementById('goldspoon-download-btn');
       var backdrop = document.getElementById('download-modal-backdrop');

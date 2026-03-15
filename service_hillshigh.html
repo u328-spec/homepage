@@ -524,6 +524,16 @@
       height: auto;
       object-fit: contain;
     }
+    /* 모바일 전용: 서비스 목업 이미지 공통 크기 조절 */
+    @media (max-width: 767px) {
+      .goldspoon-lounge-visual img,
+      .goldspoon-near-visual img {
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        object-fit: contain;
+      }
+    }
     @media (min-width: 768px) {
       .goldspoon-near-section {
         padding: 7rem 3rem 0;
@@ -561,7 +571,7 @@
     /* 골드스푼 다운로드 CTA 섹션 */
     .goldspoon-download-section {
       background-color: #012130;
-      padding: 1rem 1.5rem 1rem; /* 모바일: 위아래 여백 1rem으로 넉넉하게 */
+      padding: 5rem 1.5rem 5rem; /* 모바일: 골드스푼/더멤버스와 동일하게 위아래 5rem */
       color: #ffffff;
       overflow: hidden;
       position: relative;
@@ -821,7 +831,7 @@
         <h1 class="goldspoon-hero-title">
           일본최초 검증기반<br />데이팅앱 힐즈하이
         </h1>
-        <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit rounded-full bg-white px-8 py-3.5 text-base font-medium text-[#151515] transition hover:bg-neutral-100 md:text-lg">
+        <a href="https://hills.onelink.me/fFSS/ai98tv1l" target="_blank" rel="noopener noreferrer" class="inline-flex w-fit rounded-full bg-white px-8 py-3.5 text-base font-medium text-[#151515] transition hover:bg-neutral-100 md:text-lg">
           홈페이지 바로가기
         </a>
       </div>
@@ -944,7 +954,7 @@
         <div class="flex min-w-0 flex-col gap-0.5 text-xs sm:flex-row sm:items-center sm:gap-4 md:text-sm">
           <span>인증번호 ISMS-P-KISA-2026-009</span>
           <span class="hidden text-neutral-300 md:inline">|</span>
-          <span>유효기간 2023-10-05 ~ 2026-10-04</span>
+          <span>유효기간 2026-02-04 ~ 2029-02-03</span>
         </div>
       </div>
       <hr class="mb-4 border-neutral-200" />

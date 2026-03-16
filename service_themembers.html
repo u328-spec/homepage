@@ -141,14 +141,21 @@
     @media (max-width: 767px) {
       .goldspoon-hero-inner {
         height: auto;
-        padding: 8rem 1.25rem 0rem;
+        padding: 8rem 1.25rem 0;
         gap: 2.5rem;
+      }
+      .goldspoon-hero-copy {
+        flex: none;
+      }
+      .goldspoon-hero-visual {
+        flex: none;
       }
       .goldspoon-hero-title {
         font-size: 1.5rem;
       }
       .goldspoon-hero-mockup {
         max-width: 260px;
+        vertical-align: bottom;
       }
     }
 
@@ -808,7 +815,7 @@
 </head>
 <body>
   <!-- 서비스 Hero Section -->
-  <section class="relative min-h-screen overflow-hidden">
+  <section class="relative min-h-0 overflow-hidden md:min-h-screen">
     <!-- 배경 이미지 -->
     <div class="absolute inset-0 -z-10">
       <img src="bg_themembers.png" alt="" class="h-full w-full object-cover object-center" />

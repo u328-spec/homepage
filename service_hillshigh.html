@@ -658,10 +658,10 @@
       display: none; /* 모바일: 오른쪽 이미지는 숨김 */
       justify-content: center;
       align-items: center;
-      margin-top: 1.5rem;
+      margin-top: 3rem;
     }
     .goldspoon-download-mockup {
-      max-width: 420px;
+      max-width: 920px;
       width: 100%;
       height: auto;
       object-fit: contain;
@@ -736,7 +736,7 @@
     }
     @media (min-width: 768px) {
       .goldspoon-download-section {
-      padding: 0.5rem 3rem 0;
+        padding: 0.8rem 3rem 0;
       }
       .goldspoon-download-inner {
         flex-direction: row;
@@ -744,6 +744,7 @@
         gap: 4rem;
       }
       .goldspoon-download-copy {
+        flex: 0 0 360px; /* 태블릿 이상: 가로 360px 고정 */
         text-align: left; /* 데스크톱에서는 다시 왼쪽 정렬 */
       }
       .goldspoon-download-logo {
@@ -752,7 +753,7 @@
       }
       .goldspoon-download-visual {
         display: flex; /* 데스크톱에서만 오른쪽 이미지 표시 */
-      margin-top: 2.5rem;
+        margin-top: 2.5rem;
       }
       .goldspoon-download-title-main,
       .goldspoon-download-title-sub {
@@ -761,7 +762,7 @@
     }
     @media (min-width: 1024px) {
       .goldspoon-download-section {
-      padding: 0.75rem 4rem 0;
+      padding: 0rem 4rem 0rem;
       }
       .goldspoon-download-inner {
         gap: 5rem;
@@ -923,7 +924,7 @@
       <img src="logo_hillshigh.png" alt="힐즈하이 로고" class="goldspoon-download-logo" />
       <p class="goldspoon-download-title-main">일본 최초 서류심사제</p>
       <p class="goldspoon-download-title-sub" style="color: #00AEFF;">힐즈하이</p>
-      <a href="#" class="goldspoon-download-button" id="goldspoon-download-btn">
+      <a href="https://hills.onelink.me/fFSS/ai98tv1l" class="goldspoon-download-button" id="goldspoon-download-btn">
         앱 다운로드하기
       </a>
     </div>
@@ -1069,7 +1070,15 @@
       var closeBtn = document.getElementById('download-modal-close');
       if (!openBtn || !backdrop) return;
 
+      function isMobileView() {
+        return window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+      }
+
       function openModal(e) {
+        if (isMobileView()) {
+          // 모바일 뷰에서는 QR 모달 대신 바로 다운로드 링크로 이동
+          return;
+        }
         if (e) e.preventDefault();
         backdrop.classList.remove('hidden');
         backdrop.setAttribute('aria-hidden', 'false');

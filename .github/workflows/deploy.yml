@@ -1,0 +1,41 @@
+name: Deploy to AWS S3 and Invalidate CloudFront
+
+on:
+  push:
+    branches:
+      - prod
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      - name: Deploy to S3 for dev branch
+        if: github.ref_name == 'dev'
+        run: aws s3 sync . s3://${{ secrets.S3_BUCKET_NAME_FOR_QA }} --delete --exclude ".git/*" --exclude ".github/*"
+            
+      - name: Invalidate CloudFront for dev branch
+        if: github.ref_name == 'dev'
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_ID_FOR_QA }} --paths "/*"
+
+      - name: Deploy to S3 for main branch
+        if: github.ref_name == 'prod'
+        run: aws s3 sync . s3://${{ secrets.S3_BUCKET_NAME_FOR_PROD }} --delete --exclude ".git/*" --exclude ".github/*"
+
+      - name: Invalidate CloudFront for main branch
+        if: github.ref_name == 'prod'
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_ID_FOR_PROD }} --paths "/*"
